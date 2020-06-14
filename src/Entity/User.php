@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -10,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="fos_user")
+ * @ORM\Table(name="user")
  * @UniqueEntity(fields={"email"}, message="You already have an account")
  */
 class User implements UserInterface
@@ -21,6 +23,8 @@ class User implements UserInterface
     {
         $this->roles = [self::ROLE_USER];
         $this->enabled = false;
+
+        $this->posts = new ArrayCollection();
     }
 
     /**
@@ -193,6 +197,39 @@ class User implements UserInterface
     }
 
     /**
+     * @return Collection
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    /**
+     * @param Post $post
+     * @return $this
+     */
+    public function addPost(Post $post): self
+    {
+        if (!$this->posts->contains($post))
+        {
+            $this->posts[] = $post;
+            $post->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): self
+    {
+        if ($this->posts->contains($post))
+        {
+            $this->posts->removeElement($post);
+            if ($post->getUser() === $this)
+                $post->setUser(null);
+        }
+    }
+
+    /**
      * @var int
      *
      * @ORM\Id()
@@ -246,4 +283,10 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+
+    /**
+     * OneToMany(targetEntity=Post::class, mappedBy="User")
+     */
+    private $posts;
+
 }

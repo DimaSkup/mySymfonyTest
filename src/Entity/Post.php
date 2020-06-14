@@ -128,14 +128,14 @@ class Post
     }
 
 
-    public function getCategory(): ?Category
+    public function getUser(): ?User
     {
-        return $this->category;
+        return $this->user;
     }
 
-    public function setCategory(?Category $category): self
+    public function setUser(?User $user): self
     {
-        $this->category = $category;
+        $this->user = $user;
         return $this;
     }
 
@@ -180,12 +180,11 @@ class Post
      */
     private $created_at;
 
-    /*
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="Post")
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="Post")
      * @ORM\JoinColumn(nullable=false)
-     *
-    private $category;
-    */
+     */
+    private $user;
 
 }
 
