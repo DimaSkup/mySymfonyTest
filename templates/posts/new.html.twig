@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Creating a new post{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+        {{ form_row(form.username) }}
+        {{ form_row(form.email) }}
+        Homepage:{{ form_row(form.homepage) }}
+        {{ form_row(form.text, { 'attr': {
+            'rows' : '10',
+            'cols' : '10' }}) }}
+        <button class="btn btn-default" type="submit">Save</button>
+    {{ form_end(form) }}
+{% endblock %}

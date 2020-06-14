@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registration{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h3 class="text-center">Registration</h3>
+        {% if form is defined %}
+        {{ form_start(form) }}
+        {{ form_row(form.email, {
+            'label': ' '
+        }) }}
+        {{ form_row(form.plainPassword.first, {
+            'label': ' ', 'class': 'form-control'
+        }) }}
+        {{ form_row(form.plainPassword.second, {
+            'label': ' ', 'help': 'Re-enter password'
+        }) }}
+        <button type="submit" class="btn btn-success" formnovalidate>Sign up</button>
+        {{ form_end(form) }}
+        {% endif %}
+    </div>
+{% endblock %}

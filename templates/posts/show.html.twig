@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Text of the post{% endblock %}
+
+{% block body %}
+    <p>{{ post.text }}</p>
+    <a href="{{ path('blog_post_edit', {'slug': post.slug}) }}">Edit</a>
+    <a href="{{ path('blog_post_delete', {'slug': post.slug}) }}">Delete</a>
+    <p></p><a href="{{ path('blog_posts') }}">Back</a></p>
+{% endblock %}

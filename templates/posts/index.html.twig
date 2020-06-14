@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List of the posts{% endblock %}
+
+{% block body %}
+    {% for post in posts %}
+        <p>
+            <a href="{{ path('blog_show', {'slug': post.slug}) }}">{{ post.text  | slice(0, 100) ~ '...' }}</a>
+            by {{ post.username }}
+        </p>
+    {% endfor %}
+    <p>
+    <form class="form-inline my-2 my-lg-0" action="{{ path('blog_search') }}" method="get">
+        <input class="form-control mr-sm-w" type="search" aria-label="Search" name="q">
+        <button class="btn btn-default my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    </p>
+{% endblock %}
