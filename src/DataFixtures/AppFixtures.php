@@ -63,7 +63,7 @@ class AppFixtures extends Fixture
             $user->setPassword('12345');
             $user->setRoles([User::ROLE_USER]);
             $user->setEnable(true);
-            $user->setIsverified(true);
+            $user->setIsVerified(true);
 
             $manager->persist($user);
         }

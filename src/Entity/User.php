@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -21,9 +22,28 @@ class User implements UserInterface
 
     public function __construct()
     {
+        $a = func_get_args();
+        $i = func_num_args();
+        if (method_exists($this, $f='__construct'.$i))
+        {
+            call_user_func_array(array($this, $f), $a);
+        }
+        else
+        {
+            $this->roles = [self::ROLE_USER];
+            $this->enabled = false;
+            $this->passwordEncoder = UserPasswordEncoderInterface::class;
+            $this->posts = new ArrayCollection();
+        }
+    }
+
+    public function __construct1(
+        UserPasswordEncoderInterface $passwordEncoder
+    )
+    {
+        $this->passwordEncoder = $passwordEncoder;
         $this->roles = [self::ROLE_USER];
         $this->enabled = false;
-
         $this->posts = new ArrayCollection();
     }
 
@@ -230,6 +250,15 @@ class User implements UserInterface
     }
 
     /**
+     * @return UserPasswordEncoderInterface
+     */
+    public function getPasswordEncoder()
+        : UserPasswordEncoderInterface
+    {
+        return $this->passwordEncoder;
+    }
+
+    /**
      * @var int
      *
      * @ORM\Id()
@@ -289,4 +318,5 @@ class User implements UserInterface
      */
     private $posts;
 
+    private $passwordEncoder;
 }
