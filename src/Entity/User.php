@@ -22,6 +22,12 @@ class User implements UserInterface
 
     public function __construct()
     {
+        $this->setRoles([self::ROLE_USER]);
+        $this->setEnable(false);
+        $this->passwordEncoder = UserPasswordEncoderInterface::class;
+        $this->posts = new ArrayCollection();
+
+
         $a = func_get_args();
         $i = func_num_args();
         if (method_exists($this, $f='__construct'.$i))
@@ -30,10 +36,7 @@ class User implements UserInterface
         }
         else
         {
-            $this->roles = [self::ROLE_USER];
-            $this->enabled = false;
-            $this->passwordEncoder = UserPasswordEncoderInterface::class;
-            $this->posts = new ArrayCollection();
+
         }
     }
 

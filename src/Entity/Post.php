@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+
+use Cocur\Slugify\Slugify;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
@@ -15,6 +18,7 @@ class Post
     public function __construct()
     {
         $this->created_at = new \DateTime();
+        $this->slugify = new Slugify();
     }
 
     /**
@@ -133,10 +137,22 @@ class Post
         return $this->user;
     }
 
+    /**
+     * @param User|null $user
+     * @return $this
+     */
     public function setUser(?User $user): self
     {
         $this->user = $user;
         return $this;
+    }
+
+    /**
+     * @return Slugify
+     */
+    public function getSlugify()
+    {
+        return $this->slugify;
     }
 
 
@@ -186,5 +202,9 @@ class Post
      */
     private $user;
 
+    /**
+     * @var Slugify $slugify
+     */
+    private $slugify;
 }
 

@@ -44,7 +44,8 @@ final class UserAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('email');
+        $listMapper
+            ->addIdentifier('email');
     }
 
     public function prePersist($user)
@@ -53,9 +54,7 @@ final class UserAdmin extends AbstractAdmin
         $uniqid = $request->query->get('uniqid');
         $password = $request->request->get($uniqid)['plainPassword']['first'];
 
-        dd($password);
-
-        //$user->setPassword($password);
+        $user->setPassword($password);
 
         return $user;
     }
@@ -73,6 +72,14 @@ final class UserAdmin extends AbstractAdmin
         return $this->userManager;
     }
 
+    public function toString($object)
+    {
+        return $object instanceof User
+            ? $object->getUsername()
+            : 'User';
+    }
 
     private $userManager;
+
+
 }
