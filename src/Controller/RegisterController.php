@@ -30,6 +30,7 @@ class RegisterController extends AbstractController
     public function register(
         UserPasswordEncoderInterface $passwordEncoder,
         Request $request,
+        //Mailer $mailer,
         CodeGenerator $codeGenerator,
         EventDispatcherInterface $eventDispatcher
     )
@@ -57,14 +58,13 @@ class RegisterController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-
+            //$mailer->sendConfirmationMessage($user);
             $userRegisteredEvent = new RegisteredUserEvent($user);
             $eventDispatcher->dispatch($userRegisteredEvent, RegisteredUserEvent::NAME);
         }
 
         return $this->render('security/register.html.twig', [
-            'form' => $form->createView(),
-            'var' => 1
+            'form' => $form->createView()
         ]);
     }
 

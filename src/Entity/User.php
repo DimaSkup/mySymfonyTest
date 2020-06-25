@@ -321,5 +321,10 @@ class User implements UserInterface
      */
     private $posts;
 
+    /**
+     * OneToMany(targetEntity=ResetPasswordRequest::class, mappedBy="User")
+     */
+    private $resetToken;
+
     private $passwordEncoder;
 }
