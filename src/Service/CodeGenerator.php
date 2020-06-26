@@ -23,4 +23,20 @@ class CodeGenerator
 
         return $code;
     }
+
+    /**
+     * @return string
+     */
+    public function generateResetToken()
+{
+    $stringLength = strlen(self::RANDOM_STRING);
+    $code = '';
+
+    for ($i = 0; $i < $stringLength; $i++)
+    {
+        $code .= self::RANDOM_STRING[rand(0, $stringLength - 1)];
+    }
+
+    return $code;
+}
 }

@@ -31,6 +31,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getOneOrNullResult();
     }
 
+    public function isUserExists(string $email): bool
+    {
+        $user = $this->createQueryBuilder('u')
+            ->where('u.email = :email')
+            ->setParameter('email', $email)
+            ->getQuery()
+            ->getOneOrNullResult();
+        if ($user === null)
+            return false;       // such a user isn't exists
+        else
+            return true;
+    }
+
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */

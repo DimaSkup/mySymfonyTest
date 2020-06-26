@@ -2,16 +2,13 @@
 
 namespace App\Entity;
 
-use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
-use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestTrait;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ResetPasswordRequestRepository")
  */
 class ResetPasswordRequest
 {
-    use ResetPasswordRequestTrait;
 
     /**
      * @ORM\Id()
@@ -20,41 +17,15 @@ class ResetPasswordRequest
      */
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     */
-    private $user;
+    private $email;
+    private $expiresAt;
+    private $token;
 
-    public function __construct(User $user, string $hashedToken)
+    public function __construct(string $email,  string $hashedToken, \DateTimeInterface $expiresAt)
     {
-        $thi
-    }
+        $this->email = $email;
+        $this->token = $hashedToken;
+        $this->expiresAt = $expiresAt;
 
-    /**
-     * @return User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param User $user
-     * @return $this
-     */
-    public function setUser(User $user): self
-    {
-        $this->user = $user;
-        return $this;
-    }
-
-    public function getExpiresAt()
-    {
-        return $this->expiresAt;
-    }
-
-    public function setExpiresAt(\DateTimeInterface $expiresAt)
-    {
-        $this->expiresAt = new \DateTimeImmutable('now + 3');
     }
 }
