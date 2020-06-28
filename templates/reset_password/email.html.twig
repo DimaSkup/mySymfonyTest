@@ -1,9 +1,9 @@
-<h1>Hi!</h1>
+<h1>Hi!{{ userEmail }}</h1>
 
 <p>
     To reset your password, please visit
     <a href="{{ url('app_reset_password', {token: resetToken}) }}">here</a>
-    This link will expire in {{ tokenLifetime|date('g') }} hour(s)..
+    This link will expire in {{ tokenLifetime }} hour(s)..
 </p>
 
 <p>

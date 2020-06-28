@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\ResetPasswordRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -21,13 +22,33 @@ class ResetPasswordRequestRepository extends ServiceEntityRepository
     }
 
 
-    public function loadTokenByUsername(string $email)
+    public function loadTokenByEmail(string $email)
     {
-        return $this->createQueryBuilder('t')
-            ->where('t.email =: userEmail')
-            ->setParameter('userEmail', $email)
+        return $this->createQueryBuilder('res')
+            ->where('res.email = :email')
+            ->setParameter('email', $email)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getResult();
     }
 
+    public function validateTokenAndFetchUser(ResetPasswordRequest $token)
+    {
+        $userEmail = $token->getEmail();
+
+        return $this->getEntityManager()->getRepository(User::class)->loadUserByUsername($userEmail);
+    }
+
+    public function deleteExpiredToken()
+    {
+        /**
+        $expiredToken = $this->createQueryBuilder('res')
+             ->where('res.expires_at < :now')
+             ->setParameter('now', new \DateTimeImmutable('now'))
+             ->getQuery()
+             ->getArrayResult();
+
+        foreach($expiredToken as $token)
+        $this->getEntityManager()->remove($token);
+         */
+    }
 }

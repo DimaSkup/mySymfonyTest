@@ -253,15 +253,6 @@ class User implements UserInterface
     }
 
     /**
-     * @return UserPasswordEncoderInterface
-     */
-    public function getPasswordEncoder()
-        : UserPasswordEncoderInterface
-    {
-        return $this->passwordEncoder;
-    }
-
-    /**
      * @var int
      *
      * @ORM\Id()
@@ -325,6 +316,4 @@ class User implements UserInterface
      * OneToMany(targetEntity=ResetPasswordRequest::class, mappedBy="User")
      */
     private $resetToken;
-
-    private $passwordEncoder;
 }
