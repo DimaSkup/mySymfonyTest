@@ -6,19 +6,33 @@ use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use Cocur\Slugify\Slugify;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+use Symfony\Component\Security\Core\Security;
 
 class PostsController extends AbstractController
 {
     /** @var PostRepository $postRepository */
     private $postRepository;
 
-    public function __construct(PostRepository $postRepository)
+    /** @var Security */
+    private $security;
+
+    /**
+     * PostsController constructor.
+     * @param PostRepository $postRepository
+     * @param Security $security
+     */
+    public function __construct(PostRepository $postRepository, Security $security)
     {
         $this->postRepository = $postRepository;
+        $this->security = $security;
     }
 
     /**
@@ -45,21 +59,59 @@ class PostsController extends AbstractController
 
     /**
      * @Route("/posts/new", name="new_blog_post")
+     * @param Request $request
+     * @param Slugify $slugify
+     * @return Response
      */
     public function addPost(Request $request, Slugify $slugify)
     {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
+        $user = $this->getUser();
+
         $em = $this->getDoctrine()->getManager();
-
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
+            /** @var UploadedFile $imageFile */
+            $imageFile = $form->get('image')->getData();
+
+            // this condition is needed because the 'image' field is not required
+            // son the JPG|PNG|GIF file must be processed only when a file is uploaded
+            if ($imageFile)
+            {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+
+                //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                //$newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+                $newFilename = md5(uniqid()).'.'.$imageFile->guessExtension();
+
+                // Move the file to the directory where images are stored
+                try
+                {
+                    $imageFile->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                }
+                catch (FileException $e)
+                {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'imageFilename' property to store the JPG|PNG|GIF file name
+                // instead of its contents
+                $post->setImage($newFilename);
+            }
+
+            // set the slug for the URL of this post
             $post->setSlug($slugify->slugify(substr($post->getText(), 0, 20)));     // the first 20 characters of the text will be a slug
+            // set the user who created this post
+            $post->setUser($user);
 
-
+            // save this post in the database
             $em->persist($post);
             $em->flush();
 

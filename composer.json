@@ -38,7 +38,8 @@
         "symfony/yaml": "4.4.*",
         "symfonycasts/reset-password-bundle": "^1.1",
         "symfonycasts/verify-email-bundle": "^1.0",
-        "twig/twig": "^2.12.1"
+        "twig/twig": "^2.12.1",
+      "ext-intl": "*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",

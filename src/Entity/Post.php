@@ -148,12 +148,23 @@ class Post
     }
 
     /**
-     * @return Slugify
+     * @return mixed
      */
-    public function getSlugify()
+    public function getImage()
     {
-        return $this->slugify;
+        return $this->image;
     }
+
+    /**
+     * @param string $imageFilename
+     * @return Post
+     */
+    public function setImage(string $imageFilename): self
+    {
+        $this->image = $imageFilename;
+        return $this;
+    }
+
 
 
 
@@ -203,8 +214,12 @@ class Post
     private $user;
 
     /**
-     * @var Slugify $slugify
+     * @var string
+     * @Assert\NotBlank(message="plz upload an image")
+     * @Assert\Image()
+     * @ORM\Column(name="image", type="string", length=255, nullable=true)
      */
-    private $slugify;
+    private $image;
+
 }
 

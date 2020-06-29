@@ -62,15 +62,16 @@ class AppFixtures extends Fixture
 
     public function loadUsers(ObjectManager $manager)
     {
-        $user = new User();
-        // Encode the plain password
-        $encodedPassword = $this->passwordEncoder->encodePassword(
-            $user,
-            '12345'
-        );
+
 
         for ($i = 1; $i <= $this->fakeUsersCount; $i++)
         {
+            $user = new User();
+            // Encode the plain password
+            $encodedPassword = $this->passwordEncoder->encodePassword(
+                $user,
+                '12345'
+            );
             $user->setEmail($i.'@gmail.com')
                  ->setPassword($encodedPassword)       // set encoded password as a user password
                  ->setRoles([User::ROLE_USER])

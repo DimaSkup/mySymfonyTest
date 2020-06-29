@@ -4,7 +4,12 @@
 
 {% block body %}
     <p>{{ post.text }}</p>
+    <img src="{{ asset('uploads/images/' ~ post.image) }}">
+    <p>
     <a href="{{ path('blog_post_edit', {'slug': post.slug}) }}">Edit</a>
     <a href="{{ path('blog_post_delete', {'slug': post.slug}) }}">Delete</a>
-    <p></p><a href="{{ path('blog_posts') }}">Back</a></p>
+    </p>
+    <p>
+        <a href="{{ path('blog_posts') }}">Back</a>
+    </p>
 {% endblock %}

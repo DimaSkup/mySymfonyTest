@@ -1,0 +1,16 @@
+# src/Resources/config/Doctrine/Image.orm.yaml
+
+App\Entity\Image:
+    type: entity
+    repositoryClass: App\Entity\Repositories\ImageRepository
+    table: images
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        filename:
+            type: string
+            length: 100
+
+        # changed when files are uploaded, to force preUpdate and postUpdate to fire
