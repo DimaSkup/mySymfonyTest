@@ -72,8 +72,20 @@ class PostsController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid())
         {
+            if (!$_POST['g-recaptcha-response'])
+                exit('Please, fill the ReCaptcha');
+
+            $url = 'https://www.google.com/recaptcha/api/siteverify';
+            $key = '6Lft7qwZAAAAAMTUH3WFuGV18ekY3y3U4_VP3fvB';
+            $query = $url.'?secret='.$key.'&response='.$_POST['g-recaptcha-response'].'&remoteip='.$_SERVER['REMOTE_ADDR'];
+            $data = json_decode(file_get_contents($query));
+
+            if ($data->success == false)
+                exit("Captcha was inputted incorrectly. Please, try again");
+
             /** @var UploadedFile $imageFile */
             $imageFile = $form->get('image')->getData();
 
