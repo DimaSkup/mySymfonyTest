@@ -6,13 +6,12 @@
     {{ form_start(form) }}
         {{ form_row(form.username) }}
         {{ form_row(form.email) }}
-        Homepage:{{ form_row(form.homepage) }}
+        {{ form_row(form.homepage) }}
         {{ form_row(form.text, { 'attr': {
             'rows' : '10',
             'cols' : '10' }}) }}
         {{ form_row(form.image) }}
         <div class="g-recaptcha" data-sitekey="6Lft7qwZAAAAAEEe3JtEoGhlKDp6c8mcqinPq-PR"></div>
-        <p><input type="text" name="login" placeholder="LOGIN"></p>
         <button class="btn btn-default" name="enter" type="submit">Save</button>
     {{ form_end(form) }}
 {% endblock %}

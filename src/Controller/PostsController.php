@@ -48,7 +48,7 @@ class PostsController extends AbstractController
      */
     public function posts()
     {
-        $posts = $this->postRepository->findAll();
+        $posts = $this->postRepository->findBy(['is_moderated' => true]);
 
         return $this->render('posts/index.html.twig', [
             'posts' => $posts
@@ -65,6 +65,7 @@ class PostsController extends AbstractController
      */
     public function addPost(Request $request, Slugify $slugify)
     {
+
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
         $user = $this->getUser();
@@ -75,6 +76,7 @@ class PostsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
+            // ReCaptcha handling
             if (!$_POST['g-recaptcha-response'])
                 exit('Please, fill the ReCaptcha');
 
@@ -86,14 +88,17 @@ class PostsController extends AbstractController
             if ($data->success == false)
                 exit("Captcha was inputted incorrectly. Please, try again");
 
+
+            // File upload handling
             /** @var UploadedFile $imageFile */
             $imageFile = $form->get('image')->getData();
 
+
             // this condition is needed because the 'image' field is not required
-            // son the JPG|PNG|GIF file must be processed only when a file is uploaded
+            // so the JPG|PNG|GIF file must be processed only when a file is uploaded
             if ($imageFile)
             {
-                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                //$originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
                 // this is needed to safely include the file name as part of the URL
 
                 //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
@@ -122,10 +127,13 @@ class PostsController extends AbstractController
             $post->setSlug($slugify->slugify(substr($post->getText(), 0, 20)));     // the first 20 characters of the text will be a slug
             // set the user who created this post
             $post->setUser($user);
+            // the post won't be displayed until it is moderated
+            $post->setIsModerated(false);
 
             // save this post in the database
             $em->persist($post);
             $em->flush();
+
 
             return $this->redirectToRoute('blog_posts');
         }
@@ -153,6 +161,7 @@ class PostsController extends AbstractController
      */
     public function edit(Post $post, Request $request, Slugify $slugify)
     {
+
         $form = $this->createForm(PostType::class, $post);
         $em = $this->getDoctrine()->getManager();
 
@@ -191,6 +200,7 @@ class PostsController extends AbstractController
      */
     public function post(Post $post)
     {
+        $post->setImage(basename($post->getImage()));
         return $this->render('posts/show.html.twig', [
             'post' => $post
         ]);

@@ -47,13 +47,14 @@ class AppFixtures extends Fixture
         for ($i = 1; $i <= $this->fakePostsCount; $i++)
         {
             $post = new Post();
-            $post->setUsername($this->faker->text(10));
-            $post->setEmail($this->faker->numberBetween(0, 6)."@gmail.com");
-            $post->setHomepage($this->faker->text(10)."com");
-            $post->setText($this->faker->text(500));
-            $post->setSlug($this->slug->slugify(substr($post->getText(), 0, 20)));
-            $post->setCreatedAt($this->faker->dateTime);
-            $post->setUser($this->userRepository->findOneBy(['email' => rand(1, $this->fakeUsersCount).'@gmail.com']));
+            $post->setUsername($this->faker->text(10))
+                 ->setEmail($this->faker->numberBetween(0, 6)."@gmail.com")
+                 ->setHomepage($this->faker->text(10)."com")
+                 ->setText($this->faker->text(500))
+                 ->setSlug($this->slug->slugify(substr($post->getText(), 0, 20)))
+                 ->setCreatedAt($this->faker->dateTime)
+                 ->setUser($this->userRepository->findOneBy(['email' => rand(1, $this->fakeUsersCount).'@gmail.com']))
+                 ->setIsModerated(true);
 
             $manager->persist($post);
         }

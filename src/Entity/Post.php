@@ -19,6 +19,7 @@ class Post
     {
         $this->created_at = new \DateTime();
         $this->slugify = new Slugify();
+        $this->setIsModerated(false);
     }
 
     /**
@@ -39,11 +40,12 @@ class Post
 
     /**
      * @param mixed $username
-     * @return void
+     * @return Post
      */
-    public function setUsername($username): void
+    public function setUsername($username): self
     {
         $this->username = $username;
+        return $this;
     }
 
     /**
@@ -56,11 +58,12 @@ class Post
 
     /**
      * @param mixed $email
-     * @return void
+     * @return Post
      */
-    public function setEmail($email): void
+    public function setEmail($email): Post
     {
         $this->email = $email;
+        return $this;
     }
 
     /**
@@ -73,11 +76,12 @@ class Post
 
     /**
      * @param mixed $homepage
-     * @return void
+     * @return Post
      */
-    public function setHomepage($homepage)
+    public function setHomepage($homepage): self
     {
         $this->homepage = $homepage;
+        return $this;
     }
 
     /**
@@ -90,11 +94,12 @@ class Post
 
     /**
      * @param mixed $text
-     * @return void
+     * @return Post
      */
-    public function setText($text): void
+    public function setText($text): Post
     {
         $this->text = $text;
+        return $this;
     }
 
     /**
@@ -107,11 +112,12 @@ class Post
 
     /**
      * @param mixed $slug
-     * @return void
+     * @return Post
      */
-    public function setSlug($slug): void
+    public function setSlug($slug): Post
     {
         $this->slug = $slug;
+        return $this;
     }
 
     /**
@@ -124,11 +130,12 @@ class Post
 
     /**
      * @param \DateTimeInterface $created_at
-     * @return void
+     * @return Post
      */
-    public function setCreatedAt(\DateTimeInterface $created_at): void
+    public function setCreatedAt(\DateTimeInterface $created_at): Post
     {
         $this->created_at = $created_at;
+        return $this;
     }
 
 
@@ -156,7 +163,7 @@ class Post
     }
 
     /**
-     * @param string $imageFilename
+     * @param string|null $imageFilename
      * @return Post
      */
     public function setImage(string $imageFilename): self
@@ -165,9 +172,31 @@ class Post
         return $this;
     }
 
+    /**
+     * @return bool
+     */
+    public function getIsModerated(): bool
+    {
+        return $this->is_moderated;
+    }
+
+    /**
+     * @param bool $is_moderated
+     * @return Post
+     */
+    public function setIsModerated(bool $is_moderated): self
+    {
+        $this->is_moderated = $is_moderated;
+        return $this;
+    }
 
 
 
+    //**************************************
+    //
+    //       The data of the class
+    //
+    //**************************************
 
     /**
      * @ORM\Id()
@@ -220,6 +249,13 @@ class Post
      * @ORM\Column(name="image", type="string", length=255, nullable=true)
      */
     private $image;
+
+
+    /**
+     * @var bool
+     * @ORM\Column(name="is_moderated", type="boolean", nullable=false)
+     */
+    private $is_moderated;  // a boolean flag which indicates whether the post has been moderated
 
 }
 
