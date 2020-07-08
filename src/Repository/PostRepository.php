@@ -22,10 +22,19 @@ class PostRepository extends ServiceEntityRepository
     public function searchByQuery(string $query)
     {
         return $this->createQueryBuilder('post')
-            ->where('post.text LIKE :query')
-            ->setParameter('query', '%'.$query.'%')
-            ->getQuery()
-            ->getResult();
+                    ->where('post.text LIKE :query')
+                    ->setParameter('query', '%'.$query.'%')
+                    ->getQuery()
+                    ->getResult();
+    }
+
+    public function searchById(string $id)
+    {
+        return $this->createQueryBuilder('post')
+                    ->where('post.id LIKE :id')
+                    ->setParameter('id', $id)
+                    ->getQuery()
+                    ->getResult();
     }
 
     // /**

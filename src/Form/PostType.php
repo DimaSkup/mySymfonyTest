@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Post;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -17,7 +18,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PostType extends AbstractType
 {
-    private $formData;
+    private $options;
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -29,56 +36,20 @@ class PostType extends AbstractType
             ->add('text',     TextareaType::class, ['label' => ' '])
             ->add('image', FileType::class, [
                         'label' => 'Image (JPG|PNG|GIF file)',
-                        //'data' => null,
+                        // make it optional so you don't have to re-upload the Image file
+                        // every time you edit the Post detail
                         'required' => false,
-                /*
-                // unmapped means that this field is not associated to any entity property
-                'mapped' => false,
-                // make it optional so you don't have to re-upload the Image file
-                // every time you edit the Post details
-                'required' => false,
-                // unmapped fields can't define their validation using annotations
-                // in the associated entity, so you can use the PHP constraint classes
-                'constraints' => [
-                    new File ([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'application/jpg',
-                            'application/png',
-                            'application/gif'
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid JPG|PNG|GIF file',
-                    ])
-                ],
-                */
             ]);
-        //$this->formData = $options['data'];
-        //dd($this->formData);
 
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
-            $post = $event->getData();
-            $imageFile = $post['image'];
 
-            $newFilename = md5(uniqid()).'.'.$imageFile->guessExtension();
+        $this->options = $options;
 /*
-            // Move the file to the directory where images are stored
-            try
-            {
-                $imageFile->move(
-                    $this->('images_directory'),
-                    $newFilename
-                );
-            }
-            catch (FileException $e)
-            {
-                // ... handle exception if something happens during file upload
-            }
-            dd($imageFile);
-*/
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event)
+        {   // beginning of the callback function
+            $this->entityManager->flush();
         });
+*/
 
-
-        $this->formData = $options['data'];
 
         $builder->get('image')
             ->addModelTransformer(new CallbackTransformer(
@@ -86,47 +57,40 @@ class PostType extends AbstractType
                 {
                     return null;
                 },
-                function ($options)
-                {
-                    return ' ';
-                    //$fullImagePath = $this->formData->getImage();
-                    //return $fullImagePath;
-/*
-                    $container = $this->getConfigurationPool()->getContainer();
-                    $request = $this->getRequest();
-                    $uniqid = $request->query->get('uniqid');
-                    $file = $request->files->get($uniqid)['image'];
-                    if (null === $file)
+                function ($imageFile) {
+                    if (null !== $imageFile) {
+                        $imageDirectoryPath = $this->options['images_directory'];   // get the path to the image directory
+
+                        $newFilename = md5(uniqid()) . '.' . $imageFile->guessExtension();
+
+                        // Move the file to the directory where images are stored
+                        try {
+                            $imageFile->move(
+                                $imageDirectoryPath,
+                                $newFilename
+                            );
+                        } catch (FileException $e) {
+                            // ... handle exception if something happens during file upload
+                        }
+
+                        return $newFilename;
+                    } else
                     {
-
-                        $userEmail = $request->request->get($uniqid)['email'];
-                        $post = $container->get('doctrine')->getRepository(Post::class)
-                            ->findBy(['email' => $userEmail]);
-                        $post = $post[0];
-
-                        $pathToImage = $container->getParameter('images_directory');
-                        $fullPathToImage = $pathToImage.'/'.$post->getImage();
-
-                        return $fullPathToImage;
+                        return ' ';
                     }
-                    return $file;
-*/
                 }
             ));
 
     }
 
-
-    public function preUpdate($post)
-    {
-        dd("LOL");
-    }
-
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Post::class
+        ]);
+
+        $resolver->setRequired([
+            'images_directory',
         ]);
     }
 }

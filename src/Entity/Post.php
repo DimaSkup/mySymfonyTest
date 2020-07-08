@@ -166,7 +166,7 @@ class Post
      * @param string|null $imageFilename
      * @return Post
      */
-    public function setImage(string $imageFilename): self
+    public function setImage(?string $imageFilename): self
     {
         $this->image = $imageFilename;
         return $this;
@@ -243,7 +243,7 @@ class Post
     private $user;
 
     /**
-     * @var string
+     * @var string|null
      * @Assert\NotBlank(message="plz upload an image")
      * @Assert\Image()
      * @ORM\Column(name="image", type="string", length=255, nullable=true)

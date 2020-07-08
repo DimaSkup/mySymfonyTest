@@ -67,7 +67,8 @@ class PostsController extends AbstractController
     {
 
         $post = new Post();
-        $form = $this->createForm(PostType::class, $post);
+        $form = $this->createForm(PostType::class, $post,
+                            ['images_directory' => $this->getParameter('images_directory'), 'post_id' => $post->getId()]);
         $user = $this->getUser();
 
         $em = $this->getDoctrine()->getManager();
@@ -118,7 +119,7 @@ class PostsController extends AbstractController
                     // ... handle exception if something happens during file upload
                 }
 
-                // updates the 'imageFilename' property to store the JPG|PNG|GIF file name
+                // updates the 'image' property to store the JPG|PNG|GIF file name
                 // instead of its contents
                 $post->setImage($newFilename);
             }
@@ -162,7 +163,7 @@ class PostsController extends AbstractController
     public function edit(Post $post, Request $request, Slugify $slugify)
     {
 
-        $form = $this->createForm(PostType::class, $post);
+        $form = $this->createForm(PostType::class, $post, ['images_directory' => $this->getParameter('images_directory')]);
         $em = $this->getDoctrine()->getManager();
 
         $form->handleRequest($request);
@@ -200,7 +201,7 @@ class PostsController extends AbstractController
      */
     public function post(Post $post)
     {
-        $post->setImage(basename($post->getImage()));
+
         return $this->render('posts/show.html.twig', [
             'post' => $post
         ]);

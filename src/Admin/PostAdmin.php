@@ -52,7 +52,7 @@ class PostAdmin extends AbstractAdmin
                 ->add('image', FileType::class, [
                             'label' => 'Image (JPG|PNG|GIF file)',
                             'required' => false,
-                            'data' => null,
+                            //'data' => null,
                             ])
                 ->add('is_moderated', BooleanType::class)
             ->end();
@@ -63,31 +63,29 @@ class PostAdmin extends AbstractAdmin
 
         $formMapper->get('image')
             ->addModelTransformer(new CallbackTransformer(
-                function ($imageAsFile)
+                function ($image)
                 {
-                    return null;
+                    return;
                 },
-                function ($emptyImageFieldAsString)
+                function ($image)
                 {
-
-                    $container = $this->getConfigurationPool()->getContainer();
                     $request = $this->getRequest();
                     $uniqid = $request->query->get('uniqid');
-                    $file = $request->files->get($uniqid)['image'];
-                    if (null === $file)
+                    $imageFile = $request->files->get($uniqid)['image'];
+                    $container = $this->getConfigurationPool()->getContainer();
+                    $pathToImageDir = $container->getParameter('images_directory');
+
+                    if (null !== $imageFile)
+                        return $imageFile;
+                    else if (null !== $this->subject->getImage())
                     {
-
-                        $userEmail = $request->request->get($uniqid)['email'];
-                        $post = $container->get('doctrine')->getRepository(Post::class)
-                                ->findBy(['email' => $userEmail]);
-                        $post = $post[0];
-
-                        $pathToImage = $container->getParameter('images_directory');
-                        $fullPathToImage = $pathToImage.'/'.$post->getImage();
-
-                        return $fullPathToImage;
+                        $postImageFilename = $this->subject->getImage();
+                        return $pathToImageDir.'/'.$postImageFilename;
                     }
-                    return $file;
+                    else // null === $this->subject->getImage() && null === $imageFile
+                    {
+                        return $pathToImageDir.'/default_image.png';
+                    }
                 }
             ));
 
@@ -126,12 +124,8 @@ class PostAdmin extends AbstractAdmin
 
         // this condition is needed because the 'image' field is not required
         // son the JPG|PNG|GIF file must be processed only when a file is uploaded
-        if ($imageFile) {
-            //$originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-            // this is needed to safely include the file name as part of the URL
-
-            //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-            //$newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+        if ($imageFile)
+        {
             $newFilename = md5(uniqid()) . '.' . $imageFile->guessExtension();
 
             // Move the file to the directory where images are stored
@@ -148,6 +142,8 @@ class PostAdmin extends AbstractAdmin
             // instead of its contents
             $post->setImage($newFilename);
         }
+        else
+            $post->setImage(null);
 
 
         $user = $em->getRepository(User::class)->loadUserByUsername($uniqidDataArray['email']);
@@ -164,47 +160,41 @@ class PostAdmin extends AbstractAdmin
     public function preUpdate($post)
     {
         $container = $this->getConfigurationPool()->getContainer();
-        //$em = $container->get('doctrine');          // doctrine entity manager
         $request = $this->getRequest();                 // Request object
         $uniqid = $request->query->get('uniqid');
         $uniqidDataArray = $request->request->get($uniqid);
         $imageFile = $request->files->get($uniqid)['image'];
 
-        if (null !== $imageFile)     // the administrator uploaded a new image while editing
+        // this condition is needed because the 'image' field is not required
+        // so the JPG|PNG|GIF file must be processed only when a file is uploaded
+        if ($imageFile)         // the administrator uploaded a new image while editing
         {
-            // this condition is needed because the 'image' field is not required
-            // so the JPG|PNG|GIF file must be processed only when a file is uploaded
-            if ($imageFile)
+            $newFilename = md5(uniqid()) . '.' . $imageFile->guessExtension();
+
+            // Move the file to the directory where images are stored
+            try
             {
-                //$originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-
-                //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                //$newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
-                $newFilename = md5(uniqid()).'.'.$imageFile->guessExtension();
-
-                // Move the file to the directory where images are stored
-                try
-                {
-                    $imageFile->move(
-                        $container->getParameter('images_directory'),
-                        $newFilename
-                    );
-                }
-                catch (FileException $e)
-                {
-                    // ... handle exception if something happens during file upload
-                }
-
-                // updates the 'imageFilename' property to store the JPG|PNG|GIF file name
-                // instead of its contents
-                $post->setImage($newFilename);
+                $imageFile->move(
+                    $container->getParameter('images_directory'),
+                    $newFilename
+                );
             }
+            catch (FileException $e)
+            {
+                // ... handle exception if something happens during file upload
+            }
+
+            // updates the 'imageFilename' property to store the JPG|PNG|GIF file name
+            // instead of its contents
+            $post->setImage($newFilename);
         }
-        else    // use an image that was previously attached to the post
+        // this means that no image has been transferred to the form,
+        // use an image that was previously attached to the post
+        else
         {
             $post->setImage(basename($post->getImage()));
         }
+
 
 
         if ($uniqidDataArray['is_moderated'] == 2)  // "no" option selected (second parameter in the field)
