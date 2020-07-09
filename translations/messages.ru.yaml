@@ -1,0 +1,20 @@
+menu:
+  main : 'Главная страница'
+  about_us : 'О нас'
+
+main_page:
+  create_new_post: 'Создать новый пост'
+  search_post: 'Найти пост'
+  by : 'создано'
+
+new_post:
+  username : 'Имя пользователя'
+  email: 'Эл. адрес'
+  homepage: 'Домашняя страница'
+  text: 'Текст'
+  image: 'Изображение (JPG|PNG|GIF файл)'
+
+show_single_post:
+  edit : 'Редактировать'
+  delete : 'Удалить'
+  back : 'Назад'

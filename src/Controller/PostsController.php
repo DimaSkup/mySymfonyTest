@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Translation\TranslatorInterface;
+use Twig\Environment;
 
 class PostsController extends AbstractController
 {
@@ -63,8 +65,13 @@ class PostsController extends AbstractController
      * @param Slugify $slugify
      * @return Response
      */
-    public function addPost(Request $request, Slugify $slugify)
+    public function addPost(Request $request, Slugify $slugify, Environment $twig)
     {
+        $response = new Response();
+        //$str_trans = $translator->trans('Book is great');
+        $str_trans = "Symfony is great";
+
+
         $post = new Post();
         $form = $this->createForm(PostType::class, $post, ['images_directory' => $this->getParameter('images_directory')]);
         $user = $this->getUser();
@@ -255,5 +262,20 @@ class PostsController extends AbstractController
         return $this->render('posts/show.html.twig', [
             'post' => $post
         ]);
+    }
+
+    /**
+     * @Route("/trans_example", name="trans_example")
+     */
+    public function transExample(Environment $twig, Request $request)
+    {
+        $response = new Response();
+        //$str_trans = $translator->trans('Book is great');
+        $str_trans = "Symfony is great";
+        $template = $twig->render('trans_example.html.twig', [
+            'text' => $str_trans
+        ]);
+        $response->setContent($template);
+        return $response;
     }
 }

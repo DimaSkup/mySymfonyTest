@@ -31,26 +31,15 @@ class PostType extends AbstractType
         $this->options = $options;
 
         $builder
-            ->add('username', TextType::class, ['label' => ''])
-            ->add('email',    TextType::class, ['label' => ''])
-            ->add('homepage', TextType::class, ['label' => '', 'required' => false])
-            ->add('text',     TextareaType::class, ['label' => ' '])
+            ->add('username', TextType::class)
+            ->add('email',    TextType::class)
+            ->add('homepage', TextType::class, ['required' => false])
+            ->add('text',     TextareaType::class)
             ->add('image', FileType::class, [
-                        'label' => 'Image (JPG|PNG|GIF file)',
                         // make it optional so you don't have to re-upload the Image file
                         // every time you edit the Post detail
                         'required' => false,
             ]);
-
-
-
-/*
-        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event)
-        {   // beginning of the callback function
-
-        });
-*/
-
 
         $builder->get('image')
             ->addModelTransformer(new CallbackTransformer(
@@ -58,7 +47,7 @@ class PostType extends AbstractType
                 {
                     return null;
                 },
-                function ($imageFile)
+                function ($imageFile)       // in this callback function we return string which contains path to the image
                 {
                     if (null !== $imageFile)    // if the form contains an image
                     {
@@ -77,8 +66,6 @@ class PostType extends AbstractType
 
     }
 
-
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
@@ -86,7 +73,7 @@ class PostType extends AbstractType
         ]);
 
         $resolver->setRequired([
-            'images_directory',
+            'images_directory',     // this option contains the path to the image directory
         ]);
     }
 }

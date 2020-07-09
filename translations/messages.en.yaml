@@ -1,0 +1,20 @@
+menu:
+  main : 'Main menu'
+  about_us : 'About Us'
+
+main_page:
+  create_new_post : 'Create a new post'
+  search_post : 'Search'
+  by : 'by'
+
+new_post:
+  username : 'Username'
+  email : 'Email'
+  homepage : 'Homepage'
+  text : 'Text'
+  image : 'Image (JPG|PNG|GIF file)'
+
+show_single_post:
+  edit : 'Edit'
+  delete : 'Delete'
+  back : 'Back'
