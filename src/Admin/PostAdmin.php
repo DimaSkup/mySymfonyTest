@@ -52,14 +52,9 @@ class PostAdmin extends AbstractAdmin
                 ->add('image', FileType::class, [
                             'label' => 'Image (JPG|PNG|GIF file)',
                             'required' => false,
-                            //'data' => null,
                             ])
                 ->add('is_moderated', BooleanType::class)
             ->end();
-/*
-        $formMapper->get('image')
-            ->addViewTransformer()
-  */
 
         $formMapper->get('image')
             ->addModelTransformer(new CallbackTransformer(
@@ -67,13 +62,15 @@ class PostAdmin extends AbstractAdmin
                 {
                     return;
                 },
-                function ($image)
+                function ($imageAsString)
                 {
                     $request = $this->getRequest();
                     $uniqid = $request->query->get('uniqid');
-                    $imageFile = $request->files->get($uniqid)['image'];
                     $container = $this->getConfigurationPool()->getContainer();
                     $pathToImageDir = $container->getParameter('images_directory');
+
+                    /** @var UploadedFile $imageFile */
+                    $imageFile = $request->files->get($uniqid)['image'];
 
                     if (null !== $imageFile)
                         return $imageFile;
@@ -167,7 +164,7 @@ class PostAdmin extends AbstractAdmin
 
         // this condition is needed because the 'image' field is not required
         // so the JPG|PNG|GIF file must be processed only when a file is uploaded
-        if ($imageFile)         // the administrator uploaded a new image while editing
+        if (is_object($imageFile))         // the administrator uploaded a new image while editing
         {
             $newFilename = md5(uniqid()) . '.' . $imageFile->guessExtension();
 
@@ -190,11 +187,12 @@ class PostAdmin extends AbstractAdmin
         }
         // this means that no image has been transferred to the form,
         // use an image that was previously attached to the post
-        else
+        else if ('default_image.png' !== basename($post->getImage()))
         {
             $post->setImage(basename($post->getImage()));
         }
-
+        else        // no image was submitted with the form and no image has been attached to the post before
+            $post->setImage(null);
 
 
         if ($uniqidDataArray['is_moderated'] == 2)  // "no" option selected (second parameter in the field)

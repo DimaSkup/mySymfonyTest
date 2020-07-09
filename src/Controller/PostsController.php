@@ -65,10 +65,8 @@ class PostsController extends AbstractController
      */
     public function addPost(Request $request, Slugify $slugify)
     {
-
         $post = new Post();
-        $form = $this->createForm(PostType::class, $post,
-                            ['images_directory' => $this->getParameter('images_directory'), 'post_id' => $post->getId()]);
+        $form = $this->createForm(PostType::class, $post, ['images_directory' => $this->getParameter('images_directory')]);
         $user = $this->getUser();
 
         $em = $this->getDoctrine()->getManager();
@@ -97,7 +95,7 @@ class PostsController extends AbstractController
 
             // this condition is needed because the 'image' field is not required
             // so the JPG|PNG|GIF file must be processed only when a file is uploaded
-            if ($imageFile)
+            if (is_object($imageFile))
             {
                 //$originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
                 // this is needed to safely include the file name as part of the URL
@@ -123,6 +121,11 @@ class PostsController extends AbstractController
                 // instead of its contents
                 $post->setImage($newFilename);
             }
+            else
+            {
+                $post->setImage(null);      // no image is attached to the post
+            }
+
 
             // set the slug for the URL of this post
             $post->setSlug($slugify->slugify(substr($post->getText(), 0, 20)));     // the first 20 characters of the text will be a slug
@@ -146,6 +149,8 @@ class PostsController extends AbstractController
 
     /**
      * @Route("/posts/search", name="blog_search")
+     * @param Request $request
+     * @return Response
      */
     public function search(Request $request)
     {
@@ -159,6 +164,10 @@ class PostsController extends AbstractController
 
     /**
      * @Route("/posts/{slug}/edit", name="blog_post_edit")
+     * @param Post $post
+     * @param Request $request
+     * @param Slugify $slugify
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function edit(Post $post, Request $request, Slugify $slugify)
     {
@@ -170,6 +179,43 @@ class PostsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
+            // File upload handling
+            /** @var UploadedFile $imageFile */
+            $imageFile = $form->get('image')->getData();
+
+
+            // this condition is needed because the 'image' field is not required
+            // so the JPG|PNG|GIF file must be processed only when a file is uploaded
+            if (is_object($imageFile))      // if we get a class UploadedFile object
+            {
+                $newFilename = md5(uniqid()).'.'.$imageFile->guessExtension();
+
+                // Move the file to the directory where images are stored
+                try
+                {
+                    $imageFile->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                }
+                catch (FileException $e)
+                {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'image' property to store the JPG|PNG|GIF file name
+                // instead of its contents
+                $post->setImage($newFilename);
+            }
+            // this means that no image has been transferred to the form,
+            // use an image that was previously attached to the post
+            if ('default_image.png' !== basename($post->getImage()))
+            {
+                $post->setImage(basename($post->getImage()));
+            }
+            else        // no image was submitted with the form and no image has been attached to the post before
+                $post->setImage(null);
+
             $post->setSlug($slugify->slugify(substr($post->getText(), 0, 20)));
             $em->flush();
 
@@ -185,6 +231,8 @@ class PostsController extends AbstractController
 
     /**
      * @Route("/posts/{slug}/delete", name="blog_post_delete")
+     * @param Post $post
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Post $post)
     {
@@ -198,6 +246,8 @@ class PostsController extends AbstractController
 
     /**
      * @Route("/posts/{slug}", name="blog_show")
+     * @param Post $post
+     * @return Response
      */
     public function post(Post $post)
     {

@@ -28,6 +28,7 @@ class PostType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $this->options = $options;
 
         $builder
             ->add('username', TextType::class, ['label' => ''])
@@ -42,11 +43,11 @@ class PostType extends AbstractType
             ]);
 
 
-        $this->options = $options;
+
 /*
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event)
         {   // beginning of the callback function
-            $this->entityManager->flush();
+
         });
 */
 
@@ -57,31 +58,26 @@ class PostType extends AbstractType
                 {
                     return null;
                 },
-                function ($imageFile) {
-                    if (null !== $imageFile) {
-                        $imageDirectoryPath = $this->options['images_directory'];   // get the path to the image directory
-
-                        $newFilename = md5(uniqid()) . '.' . $imageFile->guessExtension();
-
-                        // Move the file to the directory where images are stored
-                        try {
-                            $imageFile->move(
-                                $imageDirectoryPath,
-                                $newFilename
-                            );
-                        } catch (FileException $e) {
-                            // ... handle exception if something happens during file upload
-                        }
-
-                        return $newFilename;
-                    } else
+                function ($imageFile)
+                {
+                    if (null !== $imageFile)    // if the form contains an image
                     {
-                        return ' ';
+                        return $imageFile;  // return UploadedFile object
+                    }
+                    else if (null !== $this->options['data']->getImage())   // if the form doesn't contain an image but an image has already been attached to the post before
+                    {
+                        return $this->options['images_directory'].'/'.$this->options['data']->getImage();   // return path to the image catalog + image file name
+                    }
+                    else    // the form doesn't contain an image and no images are attached to the post
+                    {
+                        return $this->options['images_directory'].'/default_image.png';     // return path to the default image
                     }
                 }
             ));
 
     }
+
+
 
     public function configureOptions(OptionsResolver $resolver)
     {
