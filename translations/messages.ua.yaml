@@ -1,53 +1,53 @@
 menu:
-  main : 'Главная страница'
-  about_us : 'О нас'
+  main : 'Головна сторінка'
+  about_us : 'Про нас'
 
 # directory "templates/posts"
   # index.html.twig
   main_page:
-    title: 'Список постов'
-    create_new_post: 'Создать новый пост'
-    search_post: 'Найти пост'
-    by : 'создано'
+    title: 'Список постів'
+    create_new_post: 'Створити новий пост'
+    search_post: 'Знайти пост'
+    by : 'створено'
   # new.html.twig
   new_post:
-    title: 'Создание нового поста'
-    username : 'Имя пользователя'
-    email: 'Эл. адрес'
-    homepage: 'Домашняя страница'
+    title: 'Створення нового посту'
+    username : "Ім'я користувача"
+    email: 'Електронна адреса'
+    homepage: 'Домашня сторінка'
     text: 'Текст'
-    image: 'Изображение (JPG|PNG|GIF файл)'
-    button: 'Сохранить'
+    image: 'Зображення (JPG|PNG|GIF файл)'
+    button: 'Зберегти'
   # show.html.twig
   show_single_post:
-    edit : 'Редактировать'
-    delete : 'Удалить'
+    edit : 'Редагувати'
+    delete : 'Видалити'
     back : 'Назад'
   # query_post.html.twig
   query_post:
-    title: 'Поиск поста'
-    main_page: 'Главная страница'
+    title: 'Пошук посту'
+    main_page: 'Головна сторінка'
 
 # directory "templates/reset_password"
 reset_password:
   # check_email.html.twig
   check:
-    title: 'Письмо отправлено'
-    email : 'На вашу электронную почту было отправлено письмо со ссылкой, по которой вы можете сбросить пароль. Срок действия этой ссылки истекает через'
-    hour: 'часа'
-    if_not_receive : 'Если вы не получили письмо, проверьте папку со спамом или'
-    try_again : 'попробуйте еще раз'
+    title: 'Лист відправлено'
+    email : 'На вашу електронну пошту було відправлено лист з посиланням, по якому ви зможете скинути пароль. Термін дії цього посилання закінчується через'
+    hour: 'години'
+    if_not_receive : 'Якщо ви ще не отримали лист, то перевірте папку зі спамом або'
+    try_again : 'спробуйте знову'
   # email.html.twig
   email:
-    greeting: 'Привет, '
-    to_reset_password: 'Чтобы сбросить пароль, пожалуйста, посетите'
-    link: 'здесь'
-    will_expire: 'Срок действия этой ссылки истекает через'
-    hour: 'часа'
-    cheers: 'Удачи!'
+    greeting: 'Привіт, '
+    to_reset_password: 'Щоб скинути пароль, будь ласка, відвідайте'
+    link: 'тут'
+    will_expire: 'Термін дії цього посилання завершується через'
+    hour: 'години'
+    cheers: 'Успіхів!'
   # request.html.twig
   request:
-    title: 'Сброс пароля'
+    title: 'Відновлення паролю'
     help: 'Введите адрес электронной почты, и мы вышлем вам ссылку для сброса пароля'
     send_email: 'Отправить письмо для сброса пароля'
   # reset.html.twig

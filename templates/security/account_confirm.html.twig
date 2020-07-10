@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h5>Congratulations!</h5>
-    <p>Your account was successfully confirmed, now you can
-        <a href="{{ path('login') }}">Sign in</a></p>
+    <h5>{{ 'security.account_conf.congratulation' | trans }}</h5>
+    <p>{{ 'security.account_conf.acc_was_conf' | trans }}
+        <a href="{{ path('login') }}">{{ 'security.account_conf.sign_in' | trans }}</a></p>
 {% endblock %}

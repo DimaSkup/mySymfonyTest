@@ -14,7 +14,7 @@ class LocaleSubscriber implements EventSubscriberInterface
     public function onKernelRequest(GetResponseEvent $event)
     {
         $request = $event->getRequest();
-        dd($request);
+        //dd($request);
         $locale = 'ru';
         $request->setLocale($locale);
     }

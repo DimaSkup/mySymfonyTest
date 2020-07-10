@@ -2,19 +2,88 @@ menu:
   main : 'Main menu'
   about_us : 'About Us'
 
-main_page:
-  create_new_post : 'Create a new post'
-  search_post : 'Search'
-  by : 'by'
+# directory "templates/posts"
+  # index.html.twig
+  main_page:
+    title: 'List of the posts'
+    create_new_post : 'Create a new post'
+    search_post : 'Search'
+    by : 'by'
+  # new.html.twig
+  new_post:
+    title: 'Creating a new post'
+    username : 'Username'
+    email : 'Email'
+    homepage : 'Homepage'
+    text : 'Text'
+    image : 'Image (JPG|PNG|GIF file)'
+    button: 'Save'
+  # show.html.twig
+  show_single_post:
+    edit : 'Edit'
+    delete : 'Delete'
+    back : 'Back'
+  # query_post.html.twig
+  query_post:
+    title: 'Post search'
+    main_page: 'Main page'
 
-new_post:
-  username : 'Username'
-  email : 'Email'
-  homepage : 'Homepage'
-  text : 'Text'
-  image : 'Image (JPG|PNG|GIF file)'
+# directory "templates/reset_password"
+reset_password:
+  # check_email.html.twig
+  check:
+    title: 'Password Reset Email Sent'
+    email : 'An email has been sent that contains a link that you can click to reset your password. This link will expire in'
+    hour: 'hour(s)'
+    if_not_receive : 'If you do not receive an email please check your spam folder or'
+    try_again : 'try again'
+  # email.html.twig
+  email:
+    greeting: 'Hi, '
+    to_reset_password: 'To reset your password, please visit'
+    link: 'here'
+    will_expire: 'This link will expire in'
+    hour: 'hours(s)'
+    cheers: 'Cheers!'
+  # request.html.twig
+  request:
+    title: 'Reset your password'
+    help: 'Enter your email address and we we will send you a link to reset your password.'
+    send_email: 'Send password reset email'
+  # reset.html.twig
+  reset:
+    title: 'Reset your password'
+    button: 'Reset password'
 
-show_single_post:
-  edit : 'Edit'
-  delete : 'Delete'
-  back : 'Back'
+# directory "templates/security"
+security:
+  # account_confirm.html.twig
+  account_conf:
+    congratulation: 'Congratulations!'
+    acc_was_conf: 'Your account was successfully confirmed, now you can'
+    sign_in: 'Sing in'
+  # confirmation.html.twig
+  conf_reg:
+    title: 'Confirmation of the registration'
+    welcome: 'Welcome,'
+    conf_email_text: 'Please confirm your email address by clicking the following link:'
+    conf_my_email: 'Confirm my Email'
+  # login.html.twig
+  login:
+    title: 'Log in'
+    logged_in_as: 'You are logged in as'
+    logout: 'Logout'
+    invitation: 'Please, sign in'
+    email: 'Email'
+    password: 'Password'
+    button: 'Sign in'
+    reset_password: 'Reset Password'
+  # register.html.twig
+  registration:
+    title: 'Registration'
+    input_help: 'Re-enter password'
+    email: 'Email'
+    first_password: 'First password'
+    second_password: 'Second password'
+    button: 'Sign up'
+

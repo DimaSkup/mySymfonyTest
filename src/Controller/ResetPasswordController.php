@@ -173,10 +173,11 @@ class ResetPasswordController extends AbstractController
         // generate our token
         $resetToken = $this->codeGenerator->generateResetToken();
 
+
         // preparing the template of the page which will be sent to the user by e-mail
         $messageBody = $this->twig->render('reset_password/email.html.twig', [
-            'userEmail' => $emailFormData,
-            'resetToken' => $resetToken,
+            'userEmail'     => $emailFormData,
+            'resetToken'    => $resetToken,
             'tokenLifetime' => $this->tokenLifetime,           // our token is valid for three hours
         ]);
 

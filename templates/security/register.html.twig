@@ -1,22 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Registration{% endblock %}
+{% block title %}{{ 'security.registration.title' | trans }}{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h3 class="text-center">Registration</h3>
+    <div class="container" style="padding-top: 5%; padding-left: 15%; padding-right: 15%">
+        <h3 class="text-center">{{ 'security.registration.title' | trans }}</h3>
         {% if form is defined %}
         {{ form_start(form) }}
-        {{ form_row(form.email, {
-            'label': ' '
-        }) }}
-        {{ form_row(form.plainPassword.first, {
-            'label': ' ', 'class': 'form-control'
-        }) }}
-        {{ form_row(form.plainPassword.second, {
-            'label': ' ', 'help': 'Re-enter password'
-        }) }}
-        <button type="submit" class="btn btn-success" formnovalidate>Sign up</button>
+            {{ 'security.registration.email' | trans }}
+            <p>
+                {{ form_widget(form.email, {
+                }) }}
+            </p>
+            {{ 'security.registration.first_password' | trans }}
+            <p>
+                {{ form_widget(form.plainPassword.first, {
+                    'class': 'form-control'
+                }) }}
+            </p>
+            {{ 'security.registration.second_password' | trans }}
+            <p>
+                {{ form_widget(form.plainPassword.second, {
+                }) }}
+            </p>
+
+
+
+        <button type="submit" class="btn btn-success" formnovalidate>{{ 'security.registration.button' | trans }}</button>
         {{ form_end(form) }}
         {% endif %}
     </div>

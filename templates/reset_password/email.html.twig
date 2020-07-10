@@ -1,11 +1,26 @@
-<h1>Hi!{{ userEmail }}</h1>
-
-<p>
-    To reset your password, please visit
-    <a href="{{ url('app_reset_password', {token: resetToken}) }}">here</a>
-    This link will expire in {{ tokenLifetime }} hour(s)..
-</p>
-
-<p>
-    Cheers!
-</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ 'security.conf_reg.title' | trans }}</title>
+</head>
+<body>
+<div class="container">
+    <h1>{{ 'reset_password.email.greeting' | trans }}{{ userEmail }}!</h1>
+    <p>
+        {{ 'reset_password.email.to_reset_password' | trans }}
+        <a href="{{ url('app_reset_password', {token: resetToken}) }}">{{ 'reset_password.email.link' | trans }}</a>
+    </p>
+    <p>
+        {{ 'reset_password.email.will_expire' | trans }} {{ tokenLifetime }} {{ 'reset_password.email.hour' | trans }}.
+    </p>
+    <p>
+        <br>
+        {{ 'reset_password.email.cheers' | trans }}
+    </p>
+</div>
+</body>
+</html>

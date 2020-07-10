@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Post search{% endblock %}
+{% block title %}{{ 'query_post.title' | trans }}{% endblock %}
 
 {% block body %}
     {% for post in posts %}
@@ -12,6 +12,6 @@
         </div>
     {% endfor %}
     <small class="d-block text-right mt-3">
-        <a href="{{ path('blog_posts') }}">Main page</a>
+        <a href="{{ path('blog_posts') }}">{{ 'query_post.main_page' | trans }}</a>
     </small>
 {% endblock %}

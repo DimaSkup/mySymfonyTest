@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}List of the posts{% endblock %}
+{% block title %}{{ 'main_page.title' | trans }}{% endblock %}
 
 {% block body %}
     {% for post in posts %}
@@ -14,7 +14,9 @@
         <input class="form-control mr-sm-w" type="search" aria-label="Search" name="q">
         <button class="btn btn-default my-2 my-sm-0" type="submit">{{ 'main_page.search_post' | trans }}</button>
     </form>
-    <p>
-        <a href="{{ path('new_blog_post') }}">{{ 'main_page.create_new_post' | trans }}</a>
-    </p>
+    {% if app.user %}
+        <p>
+            <a href="{{ path('new_blog_post') }}">{{ 'main_page.create_new_post' | trans }}</a>
+        </p>
+    {% endif %}
 {% endblock %}
