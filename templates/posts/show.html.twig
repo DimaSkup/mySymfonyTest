@@ -9,10 +9,10 @@
         <img src="{{ asset('uploads/images/' ~ post.image) }}">
     {% endif %}
     <p>
-    <a href="{{ path('blog_post_edit', {'slug': post.slug}) }}">{{ 'show_single_post.edit' | trans }}</a>
-    <a href="{{ path('blog_post_delete', {'slug': post.slug}) }}">{{ 'show_single_post.delete' | trans }}</a>
+    <a href="{{ path('blog_post_edit', {'slug': post.slug}) }}">{{ 'posts.show_single_post.edit' | trans }}</a>
+    <a href="{{ path('blog_post_delete', {'slug': post.slug}) }}">{{ 'posts.show_single_post.delete' | trans }}</a>
     </p>
     <p>
-        <a href="{{ path('blog_posts') }}">{{ 'show_single_post.back' | trans }}</a>
+        <a href="{{ path('blog_posts') }}">{{ 'posts.show_single_post.back' | trans }}</a>
     </p>
 {% endblock %}

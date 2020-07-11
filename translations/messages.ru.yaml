@@ -4,6 +4,7 @@ menu:
 
 # directory "templates/posts"
   # index.html.twig
+posts:
   main_page:
     title: 'Список постов'
     create_new_post: 'Создать новый пост'

@@ -4,6 +4,7 @@ menu:
 
 # directory "templates/posts"
   # index.html.twig
+posts:
   main_page:
     title: 'List of the posts'
     create_new_post : 'Create a new post'

@@ -1,22 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'main_page.title' | trans }}{% endblock %}
+{% block title %}{{ 'posts.main_page.title' | trans }}{% endblock %}
 
 {% block body %}
     {% for post in posts %}
         <p>
             <a href="{{ path('blog_show', {'slug': post.slug}) }}">{{ post.text  | slice(0, 100) ~ '...' }}</a>
-            {{ 'main_page.by' | trans }} {{ post.username }}
+            {{ 'posts.main_page.by' | trans }} {{ post.username }}
         </p>
     {% endfor %}
     <p>
     <form class="form-inline my-2 my-lg-0" action="{{ path('blog_search') }}" method="get">
         <input class="form-control mr-sm-w" type="search" aria-label="Search" name="q">
-        <button class="btn btn-default my-2 my-sm-0" type="submit">{{ 'main_page.search_post' | trans }}</button>
+        <button class="btn btn-default my-2 my-sm-0" type="submit">{{ 'posts.main_page.search_post' | trans }}</button>
     </form>
     {% if app.user %}
         <p>
-            <a href="{{ path('new_blog_post') }}">{{ 'main_page.create_new_post' | trans }}</a>
+            <a href="{{ path('new_blog_post') }}">{{ 'posts.main_page.create_new_post' | trans }}</a>
         </p>
     {% endif %}
 {% endblock %}

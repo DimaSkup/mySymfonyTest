@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'new_post.title' | trans }}{% endblock %}
+{% block title %}{{ 'posts.new_post.title' | trans }}{% endblock %}
 
 {% block body %}
     {{ form_start(form) }}
-        <p>{{ 'new_post.username' | trans }}{{ form_widget(form.username) }}</p>
-        <p>{{ 'new_post.email' | trans }}{{ form_widget(form.email) }}</p>
-        <p>{{ 'new_post.homepage' | trans }}{{ form_widget(form.homepage) }}</p>
-        <p>{{ 'new_post.text' | trans }}{{ form_widget(form.text, { 'attr': {
+        <p>{{ 'posts.new_post.username' | trans }}{{ form_widget(form.username) }}</p>
+        <p>{{ 'posts.new_post.email' | trans }}{{ form_widget(form.email) }}</p>
+        <p>{{ 'posts.new_post.homepage' | trans }}{{ form_widget(form.homepage) }}</p>
+        <p>{{ 'posts.new_post.text' | trans }}{{ form_widget(form.text, { 'attr': {
             'rows' : '10',
             'cols' : '10' }}) }}</p>
-        <p>{{ 'new_post.image' | trans }}{{ form_widget(form.image) }}</p>
+        <p>{{ 'posts.new_post.image' | trans }}{{ form_widget(form.image) }}</p>
         <div class="g-recaptcha" data-sitekey="6Lft7qwZAAAAAEEe3JtEoGhlKDp6c8mcqinPq-PR"></div>
-        <button class="btn btn-dark" name="enter" type="submit">{{ 'new_post.button' | trans }}</button>
+        <button class="btn btn-dark" name="enter" type="submit">{{ 'posts.new_post.button' | trans }}</button>
     {{ form_end(form) }}
 {% endblock %}

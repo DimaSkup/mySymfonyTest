@@ -9,8 +9,16 @@
         <script src="https://www.google.com/recaptcha/api.js"></script>
     </head>
     <body>
+        {% set currentRoute = app.request.attributes.get('_route') %}
+        {% set currentRouteParams = app.request.attributes.get('_route_params') %}
+        <p>
+            <a href="{{ path(currentRoute, currentRouteParams|merge({'lang' : 'en'})) }}">English</a>
+            <a href="{{ path(currentRoute, currentRouteParams|merge({'lang' : 'ru'})) }}">Русский</a>
+            <a href="{{ path(currentRoute, currentRouteParams|merge({'lang' : 'ua'})) }}">Українська</a>
+        </p>
 
-        {% block body %}{% endblock %}
+        {% block body %}
+        {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
