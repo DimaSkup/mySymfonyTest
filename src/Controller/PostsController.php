@@ -162,6 +162,8 @@ class PostsController extends AbstractController
     public function search(Request $request)
     {
         $query = $request->query->get('q');
+        if ($request->query->keys()[0] === 'q')
+            dd("LOL");
         $posts = $this->postRepository->searchByQuery($query);
 
         return $this->render('posts/query_post.html.twig', [

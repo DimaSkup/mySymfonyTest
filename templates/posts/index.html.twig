@@ -3,6 +3,108 @@
 {% block title %}{{ 'posts.main_page.title' | trans }}{% endblock %}
 
 {% block body %}
+
+    <!--------   SLIDER   --------->
+    <div class="container-fluid p-0">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active" ></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="carousel-image">
+                        <img src="{{ asset('uploads/images/computer_dog.png') }}"  alt="computer_dog.png" class="d-block  w-100">
+                        <span class="overlayed"></span>
+                    </div>
+
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>First slide label</h5>
+                        <p>Вітаємо в гостьовій книзі</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-image">
+                        <img src="{{ asset('uploads/images/computer_pirate.jpg') }}"  alt="computer_pirate.png" class="d-block  w-100">
+                        <span class="overlayed"></span>
+                    </div>
+
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Second slide label</h5>
+                        <p>Гостьова книга надає можливість користувачам сайту залишати повідомлення на сайті.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-image">
+                        <img src="{{ asset('uploads/images/computer_robber.jpg') }}" alt="computer_robber.png" class="d-block  w-100">
+                        <span class="overlayed"></span>
+                    </div>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Third slide label</h5>
+                        <p>Залиште повідомлення й інші користувачі почабачать його!</p>
+                    </div>
+                </div>
+            </div>
+            <a href="#carouselExampleIndicators" class="carousel-control-prev " role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a href="#carouselExampleIndicators" class="carousel-control-next" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row text-center justify-content-center">
+                <div class="col-xs-12 col-sm-4 col-lg-3">
+                    <img src="{{ asset('uploads/images/temp_logo_testing.png')}}" height="200" width="100" alt="logo" class="w-100">
+                    <h3>Lorem ipsum</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Ipsa aliquam velit sequi dlor, necessitatibus ad?</p>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-lg-3">
+                    <img src="{{ asset('uploads/images/temp_logo_testing.png')}}" height="200" width="100" alt="logo" class="w-100">
+                    <h3>Lorem ipsum</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Ipsa aliquam velit sequi dlor, necessitatibus ad?</p>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-lg-3">
+                    <img src="{{ asset('uploads/images/temp_logo_testing.png')}}" height="200" width="100" alt="logo" class="w-100">
+                    <h3>Lorem ipsum</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Ipsa aliquam velit sequi dlor, necessitatibus ad?</p>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-lg-3">
+                    <img src="{{ asset('uploads/images/temp_logo_testing.png')}}" height="200" width="100" alt="logo" class="w-100">
+                    <h3>Lorem ipsum</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Ipsa aliquam velit sequi dlor, necessitatibus ad?</p>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-lg-3">
+                    <img src="{{ asset('uploads/images/temp_logo_testing.png')}}" height="200" width="100" alt="logo" class="w-100">
+                    <h3>Lorem ipsum</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Ipsa aliquam velit sequi dlor, necessitatibus ad?</p>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-lg-3">
+                    <img src="{{ asset('uploads/images/temp_logo_testing.png')}}" height="200" width="100" alt="logo" class="w-100">
+                    <h3>Lorem ipsum</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Ipsa aliquam velit sequi dlor, necessitatibus ad?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="ml-5 w-25">
+            dfgdsfgdfg twert ewt wert wert wert wert wert wert ewrt wert wert wert wert wert wert wert e
+        </div>
+
+    </div>
     {% for post in posts %}
         <p>
             <a href="{{ path('blog_show', {'slug': post.slug}) }}">{{ post.text  | slice(0, 100) ~ '...' }}</a>
