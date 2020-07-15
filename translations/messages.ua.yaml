@@ -1,14 +1,22 @@
-menu:
-  main : 'Головна сторінка'
+nav_bar:
+  home : 'Головна сторінка'
+  pricing: 'Розцінки'
   about_us : 'Про нас'
+  language: 'Мова'
+  other_languages: 'Інші мови'
+  sign_in: 'Авторизація'
+  search: 'Пошук'
+  find_post_button: 'Знайти пост'
 
 # directory "templates/posts"
   # index.html.twig
 posts:
   main_page:
     title: 'Список постів'
+    slider_greeting_1: 'Вітаємо в гостьовій книзі'
+    slider_greeting_2:  'Гостьова книга надає можливість користувачам сайту залишати повідомлення на сайті.'
+    slider_greeting_3:  'Залиште повідомлення й інші користувачі почабачать його!'
     create_new_post: 'Створити новий пост'
-    search_post: 'Знайти пост'
     by : 'створено'
   # new.html.twig
   new_post:

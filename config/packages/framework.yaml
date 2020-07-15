@@ -1,11 +1,17 @@
+parameters:
+    router.locales: en|ru|ua
 framework:
+
+
     secret: '%env(APP_SECRET)%'
-    default_locale: en
+    default_locale: '%locale%'
     #csrf_protection: true
     #http_method_override: true
-
-    translator: { fallbacks: ['en'] }
-
+    translator:
+        paths:
+            - '%kernel.project_dir%/translations'
+        fallbacks:
+            - '%locale%'
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.
     session:

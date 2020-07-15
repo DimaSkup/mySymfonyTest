@@ -15,9 +15,17 @@ class LocaleSubscriber implements EventSubscriberInterface
 {
     public function onKernelRequest(GetResponseEvent $event)
     {
+/*
         $request = $event->getRequest();
+        dd($request);
+        $logger = $request->attributes->get('logger')->getProcessors();
+        $server = $request->server;
+        dd($server->get('LOCALE'));
+        //dd($request->getLocale());
+        //dd();
         $locale = $request->query->get('lang');     // get the user's locale from the request
 
+/*
         if (!$locale)       // if the user's locale is not placed in the request
         {
             $locale = $request->cookies->get('locale');     // get the user's locale from the cookie
@@ -30,8 +38,8 @@ class LocaleSubscriber implements EventSubscriberInterface
         $response = new Response('Content', Response::HTTP_OK, ['content-type' => 'text/html']);
         $response->headers->setCookie(new Cookie('locale', $locale, strtotime('now + 30 days')));
         $response->sendHeaders();
-
-        $request->setLocale($locale);
+        */
+        //$request->setLocale($locale);
     }
 
     static public function getSubscribedEvents()

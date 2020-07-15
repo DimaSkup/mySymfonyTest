@@ -20,8 +20,7 @@
                     </div>
 
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>First slide label</h5>
-                        <p>Вітаємо в гостьовій книзі</p>
+                        <h5>{{ 'posts.main_page.slider_greeting_1' | trans }}</h5>
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -31,8 +30,7 @@
                     </div>
 
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>Second slide label</h5>
-                        <p>Гостьова книга надає можливість користувачам сайту залишати повідомлення на сайті.</p>
+                        <h5>{{ 'posts.main_page.slider_greeting_2' | trans }}</h5>
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -41,8 +39,7 @@
                         <span class="overlayed"></span>
                     </div>
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>Third slide label</h5>
-                        <p>Залиште повідомлення й інші користувачі почабачать його!</p>
+                        <h5>{{ 'posts.main_page.slider_greeting_3' | trans }}</h5>
                     </div>
                 </div>
             </div>
@@ -106,16 +103,39 @@
 
     </div>
     {% for post in posts %}
-        <p>
-            <a href="{{ path('blog_show', {'slug': post.slug}) }}">{{ post.text  | slice(0, 100) ~ '...' }}</a>
-            {{ 'posts.main_page.by' | trans }} {{ post.username }}
-        </p>
+        <div class="container post mx-5 w-50">
+            <a href="{{ path('blog_show', {'slug': post.slug}) }}">{{ post.text  | slice(0, 30) ~ '...' }}</a>
+
+            {% if post.image %}
+                <div class="m-2">
+                    <img src="{{ asset('uploads/images/' ~ post.image) }}">
+                </div>
+            {% endif %}
+
+
+
+            <div class="text mx-5">
+                {{ post.text }}
+            </div>
+
+
+
+            <div class="mx-5">
+                <a href="{{ path('blog_posts') }}">
+                    <button class="btn btn-dark">
+                        Read more
+                    </button>
+                </a>
+            </div>
+
+                {{ 'posts.main_page.by' | trans }} {{ post.username }}
+
+        </div>
+
+
     {% endfor %}
     <p>
-    <form class="form-inline my-2 my-lg-0" action="{{ path('blog_search') }}" method="get">
-        <input class="form-control mr-sm-w" type="search" aria-label="Search" name="q">
-        <button class="btn btn-default my-2 my-sm-0" type="submit">{{ 'posts.main_page.search_post' | trans }}</button>
-    </form>
+
     {% if app.user %}
         <p>
             <a href="{{ path('new_blog_post') }}">{{ 'posts.main_page.create_new_post' | trans }}</a>

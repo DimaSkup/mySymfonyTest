@@ -45,9 +45,7 @@ class PostsController extends AbstractController
         return $this->redirectToRoute("blog_posts");
     }
 
-    /**
-     * @Route("/posts", name="blog_posts")
-     */
+
     public function posts()
     {
         $posts = $this->postRepository->findBy(['is_moderated' => true]);
@@ -60,18 +58,13 @@ class PostsController extends AbstractController
 
 
     /**
-     * @Route("/posts/new", name="new_blog_post")
+     *
      * @param Request $request
      * @param Slugify $slugify
      * @return Response
      */
-    public function addPost(Request $request, Slugify $slugify, Environment $twig)
+    public function addPost(Request $request, Slugify $slugify)
     {
-        $response = new Response();
-        //$str_trans = $translator->trans('Book is great');
-        $str_trans = "Symfony is great";
-
-
         $post = new Post();
         $form = $this->createForm(PostType::class, $post, ['images_directory' => $this->getParameter('images_directory')]);
         $user = $this->getUser();
@@ -155,15 +148,13 @@ class PostsController extends AbstractController
     }
 
     /**
-     * @Route("/posts/search", name="blog_search")
+     *
      * @param Request $request
      * @return Response
      */
     public function search(Request $request)
     {
         $query = $request->query->get('q');
-        if ($request->query->keys()[0] === 'q')
-            dd("LOL");
         $posts = $this->postRepository->searchByQuery($query);
 
         return $this->render('posts/query_post.html.twig', [
@@ -172,7 +163,7 @@ class PostsController extends AbstractController
     }
 
     /**
-     * @Route("/posts/{slug}/edit", name="blog_post_edit")
+     *
      * @param Post $post
      * @param Request $request
      * @param Slugify $slugify
@@ -239,7 +230,7 @@ class PostsController extends AbstractController
     }
 
     /**
-     * @Route("/posts/{slug}/delete", name="blog_post_delete")
+     *
      * @param Post $post
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
@@ -254,21 +245,30 @@ class PostsController extends AbstractController
 
 
     /**
-     * @Route("/posts/{slug}", name="blog_show")
+     *
      * @param Post $post
      * @return Response
      */
     public function post(Post $post)
     {
+        $user = $this->getUser();
+
+        // check if this post was created by the current user
+        // if so, we will allow him to edit this post
+        if ($post->getUser() === $user)
+            $postIsByCurrentUser = true;
+        else
+            $postIsByCurrentUser = false;
 
         return $this->render('posts/show.html.twig', [
-            'post' => $post
+            'post' => $post,
+            'postIsByCurrentUser' => $postIsByCurrentUser
         ]);
     }
 
-    /**
+    /*
      * @Route("/trans_example", name="trans_example")
-     */
+     *
     public function transExample(Environment $twig, Request $request)
     {
         $response = new Response();
@@ -280,4 +280,5 @@ class PostsController extends AbstractController
         $response->setContent($template);
         return $response;
     }
+    */
 }

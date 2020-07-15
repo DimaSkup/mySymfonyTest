@@ -25,45 +25,48 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="nav navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a href="{{ path('default_address') }}" class="nav-link">Home</a>
+                    <a href="{{ path('blog_posts') }}" class="nav-link">{{ 'nav_bar.home' | trans }}</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link disabled">Pricing</a>
+                    <a href="#" class="nav-link disabled">{{ 'nav_bar.pricing' | trans }}</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link disabled">About us</a>
+                    <a href="#" class="nav-link disabled">{{ 'nav_bar.about_us' | trans }}</a>
                 </li>
             </ul>
             <div class="btn-group">
                 <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                    Language
+                    {{ 'nav_bar.language' | trans }}
                 </button>
                 <!-- choice of languages -->
                 <div class="dropdown-menu">
 
-                    <a class="dropdown-item" href="{{ path(currentRoute, {'lang' : 'en'}) }}">English</a>
-                    <a class="dropdown-item" href="{{ path(currentRoute, {'lang' : 'ru'}) }}">Русский</a>
-                    <a class="dropdown-item" href="{{ path(currentRoute, {'lang' : 'ua'}) }}">Українська</a>
+                    <a class="dropdown-item" href="{{ path(currentRoute, currentRouteParams|merge({'_locale': 'en'})) }}">English</a>
+                    <a class="dropdown-item" href="{{ path(currentRoute, currentRouteParams|merge({'_locale': 'ru'})) }}">Русский</a>
+                    <a class="dropdown-item" href="{{ path(currentRoute, currentRouteParams|merge({'_locale': 'ua'})) }}">Українська</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Others languages</a>
+                    <a class="dropdown-item" href="#">{{ 'nav_bar.other_languages' | trans }}</a>
                 </div>  <!-- /.dropdown-menu -->
             </div>  <!-- /.btn-group -->
             <div class="nav-item">
                 <a href="{{ path('login') }}">
-                    <button class="btn btn-outline-light mx-2 my-sm-2">Sing in</button>
+                    <button class="btn btn-outline-light mx-2 my-sm-2">{{ 'nav_bar.sign_in' | trans }}</button>
                 </a>
             </div> <!-- /.nav-item -->
             <form class="form-inline my-2 my-lg-0" action="{{ path('blog_search') }}" method="get">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{{ 'posts.main_page.search_post' | trans }}</button>
+                <input class="form-control mr-sm-2" type="search" placeholder="{{ 'nav_bar.search' | trans }}" aria-label="Search" name="q">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{{ 'nav_bar.find_post_button' | trans }}</button>
             </form>
         </div>  <!-- /.navbar-collapse -->
     </nav>  <!-- END OF THE NAVIGATION BAR -->
 
+    <div class="page-title">
         {% block body %}
 
         {% endblock %}
         {% block javascripts %}{% endblock %}
+    </div>
+
     </body>
 </html>

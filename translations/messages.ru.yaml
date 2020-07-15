@@ -1,14 +1,22 @@
-menu:
-  main : 'Главная страница'
+nav_bar:
+  home : 'Главная страница'
+  pricing: 'Расценки'
   about_us : 'О нас'
+  language: 'Язык'
+  other_languages: 'Другие языки'
+  sign_in: 'Авторизация'
+  search: 'Поиск'
+  find_post_button: 'Найти пост'
 
 # directory "templates/posts"
   # index.html.twig
 posts:
   main_page:
     title: 'Список постов'
+    slider_greeting_1: 'Добро пожаловать в гостевую книгу'
+    slider_greeting_2: 'Гостевая книга дает возможность пользователям сайта оставлять сообщения на сайте'
+    slider_greeting_3: 'Оставьте сообщение и другие пользователи увидят его!'
     create_new_post: 'Создать новый пост'
-    search_post: 'Найти пост'
     by : 'создано'
   # new.html.twig
   new_post:
