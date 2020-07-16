@@ -20,7 +20,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class RegisterController extends AbstractController
 {
     /**
-     * @Route("/register", name="register")
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param Request $request
      * @param CodeGenerator $codeGenerator
@@ -68,9 +67,7 @@ class RegisterController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/confirm/{code}", name="email_confirmation")
-     */
+
     public function confirmEmail(UserRepository $userRepository, string $code)
     {
         /** @var User $user */

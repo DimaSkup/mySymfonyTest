@@ -6,7 +6,7 @@
     <h1>{{ 'reset_password.reset.title' | trans }}</h1>
 
     {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
+        {{ form_widget(resetForm.plainPassword) }}
         <button class="btn btn-primary">{{ 'reset_password.reset.button' | trans }}</button>
     {{ form_end(resetForm) }}
 {% endblock %}

@@ -53,7 +53,7 @@
             </a>
         </div>
     </div>
-
+<!--
     <div class="container-fluid">
         <div class="container">
             <div class="row text-center justify-content-center">
@@ -102,39 +102,35 @@
         </div>
 
     </div>
-    {% for post in posts %}
-        <div class="container post mx-5 w-50">
-            <a href="{{ path('blog_show', {'slug': post.slug}) }}">{{ post.text  | slice(0, 30) ~ '...' }}</a>
-
+-->
+    <div class="container post mx-auto">
+        {% for post in posts %}
+            <br>
+            <div class="mx-2 mt-2">
+                <h3><a href="{{ path('blog_show', {'slug': post.slug}) }}">{{ post.text  | slice(0, 30) ~ '...' }}</a></h3>
+            </div>
             {% if post.image %}
                 <div class="m-2">
                     <img src="{{ asset('uploads/images/' ~ post.image) }}">
                 </div>
             {% endif %}
-
-
-
-            <div class="text mx-5">
+            <div class="text mx-2">
                 {{ post.text }}
             </div>
-
-
-
-            <div class="mx-5">
-                <a href="{{ path('blog_posts') }}">
+            <div class="m-2">
+                <a href="{{ path('blog_show', {'slug': post.slug}) }}">
                     <button class="btn btn-dark">
                         Read more
                     </button>
                 </a>
             </div>
-
-                {{ 'posts.main_page.by' | trans }} {{ post.username }}
-
-        </div>
-
-
-    {% endfor %}
-    <p>
+            <div class="dropdown-divider my-2" style="border-color: darkgrey;"></div>
+            <span class="mx-2">{{ post.createdAtString }}</span>
+            <span class="mx-2">{{ 'posts.main_page.by' | trans }} {{ post.username }}</span>
+            <div class="dropdown-divider my-2" style="border-color: darkgrey;"></div>
+            <br>
+        {% endfor %}
+    </div>  <!-- / .container post -->
 
     {% if app.user %}
         <p>

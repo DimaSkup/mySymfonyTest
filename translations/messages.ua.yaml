@@ -57,8 +57,9 @@ reset_password:
   # request.html.twig
   request:
     title: 'Відновлення паролю'
+    placeholder_email: 'Введіть адресу електронної пошти'
     help: 'Введіть адресу електронної пошти, і ми вишлемо вам посилання для відновлення паролю'
-    send_email: 'Відправити лист для відновлення паролю'
+    send_email: 'Відновити пароль'
   # reset.html.twig
   reset:
     title: 'Відновлення паролю'
@@ -80,6 +81,8 @@ security:
   # login.html.twig
   login:
     title: 'Авторизація'
+    placeholder_email: 'Введіть свою ел.адресу'
+    placeholder_password: 'Введіть свій пароль'
     logged_in_as: 'Ви увійшли як'
     logout: 'Вийти'
     invitation: 'Будь ласка, увійдіть'
@@ -87,6 +90,8 @@ security:
     password: 'Пароль'
     button: 'Увійти'
     reset_password: 'Відновити пароль'
+    not_registered: 'Не зареєстровані?'
+    create_account: 'Створити акаунт'
   # register.html.twig
   registration:
     title: 'Реєстрація'

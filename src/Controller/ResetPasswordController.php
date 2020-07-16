@@ -56,8 +56,6 @@ class ResetPasswordController extends AbstractController
 
     /**
      * Display & process form to request a password reset.
-     *
-     * @Route("", name="app_forgot_password_request")
      */
     public function request(Request $request): Response
     {
@@ -88,14 +86,14 @@ class ResetPasswordController extends AbstractController
 
     /**
      * Validates and process the reset URL that the user clicked in their email.
-     *
-     * @Route("/reset/{token}", name="app_reset_password")
      */
     public function reset(Request $request,  UserPasswordEncoderInterface $passwordEncoder, string $token = null): Response
     {
         $em = $this->getDoctrine()->getManager();
         // get user email address from the cookies
         $userEmail = $request->cookies->get('resetPasswordUserEmail');
+
+
 
         if ($token)
         {
@@ -105,12 +103,14 @@ class ResetPasswordController extends AbstractController
            $resetToken = new ResetPasswordRequest($userEmail, $token, $expiresAt);
            $em->persist($resetToken);                                                       // save resetToken into DataBase
            $em->flush();
+
            return $this->redirectToRoute('app_reset_password');
         }
 
 
         // download the token from the database
         $token = $this->getDoctrine()->getRepository(ResetPasswordRequest::class)->loadTokenByEmail($userEmail);
+        dd($token);
         $token = $token[0];
 
         // no such token founded in the database

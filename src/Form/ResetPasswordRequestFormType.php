@@ -19,6 +19,10 @@ class ResetPasswordRequestFormType extends AbstractType
                         'message' => 'Please enter your email',
                     ]),
                 ],
+                'attr' => [
+                    'placeholder' => 'reset_password.request.placeholder_email',
+                    'class' => 'form-control'
+                ]
             ])
         ;
     }

@@ -16,20 +16,25 @@
     {% endif %}
 
 
-    <div class="container" style="padding-top: 5%; padding-left: 15%; padding-right: 15%">
-        <h1 class="h3 mb-3 font-weight-normal">{{ 'security.login.invitation' | trans }}</h1>
+    <div class="container test_login mx-auto w-25">
+        <h1 class="h3  mb-3 font-weight-normal text-center">{{ 'security.login.invitation' | trans }}</h1>
         <div class="form-group">
             <label for="inputEmail">{{ 'security.login.email' | trans }}</label>
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
+                   placeholder="{{ 'security.login.placeholder_email' | trans}}" required>
         </div>
         <div class="form-group">
             <label for="inputPassword">{{ 'security.login.password' | trans }}</label>
-            <input type="password" name="password" id="inputPassword" class="form-control" required>
+            <input type="text" name="password" id="inputPassword" class="form-control"
+                   placeholder="{{ 'security.login.placeholder_password' | trans}}" required>
         </div>
 
         <input type="hidden" name="_csrf_token"
                value="{{ csrf_token('authenticate') }}"
         >
+        <p>
+            <a href="{{ path("app_forgot_password_request") }}">{{ 'security.login.reset_password' | trans }}</a>
+        </p>
 
         {#
             Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
@@ -42,14 +47,16 @@
             </div>
         #}
 
-        <button class="btn btn-lg btn-primary" type="submit">
+        <button class="btn btn-lg btn-primary w-100" type="submit">
             {{ 'security.login.button' | trans }}
         </button>
 
-        <p>
-            <br/>
-            <a href="{{ path("app_forgot_password_request") }}">{{ 'security.login.reset_password' | trans }}</a>
-        </p>
+        <div class="text-center my-2">
+            {{ 'security.login.not_registered' | trans}}
+            <a class="link" href="{{ path('register') }}">{{ 'security.login.create_account' | trans}} </a>
+        </div>
+
+
     </div>
 
 

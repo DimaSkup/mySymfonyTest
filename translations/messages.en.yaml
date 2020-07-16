@@ -57,8 +57,9 @@ reset_password:
   # request.html.twig
   request:
     title: 'Reset your password'
+    placeholder_email: 'Enter your email'
     help: 'Enter your email address and we we will send you a link to reset your password.'
-    send_email: 'Send password reset email'
+    send_email: 'Reset password'
   # reset.html.twig
   reset:
     title: 'Reset your password'
@@ -80,6 +81,8 @@ security:
   # login.html.twig
   login:
     title: 'Log in'
+    placeholder_email: 'Type your email'
+    placeholder_password: 'Type your password'
     logged_in_as: 'You are logged in as'
     logout: 'Logout'
     invitation: 'Please, sign in'
@@ -87,6 +90,8 @@ security:
     password: 'Password'
     button: 'Sign in'
     reset_password: 'Reset Password'
+    not_registered: 'Not registered?'
+    create_account: 'Create an account'
   # register.html.twig
   registration:
     title: 'Registration'
