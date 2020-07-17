@@ -84,6 +84,7 @@ class ResetPasswordController extends AbstractController
     }
 
 
+
     /**
      * Validates and process the reset URL that the user clicked in their email.
      */
@@ -92,8 +93,6 @@ class ResetPasswordController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         // get user email address from the cookies
         $userEmail = $request->cookies->get('resetPasswordUserEmail');
-
-
 
         if ($token)
         {
@@ -104,13 +103,14 @@ class ResetPasswordController extends AbstractController
            $em->persist($resetToken);                                                       // save resetToken into DataBase
            $em->flush();
 
-           return $this->redirectToRoute('app_reset_password');
+           //$urlToCurRoute = $this->generateUrl('app_reset_password');
+           //return new RedirectResponse($urlToCurRoute);
+            return $this->redirectToRoute('app_reset_password');
         }
 
 
         // download the token from the database
         $token = $this->getDoctrine()->getRepository(ResetPasswordRequest::class)->loadTokenByEmail($userEmail);
-        dd($token);
         $token = $token[0];
 
         // no such token founded in the database

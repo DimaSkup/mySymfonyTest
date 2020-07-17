@@ -3,10 +3,15 @@
 {% block title %}{{ 'reset_password.reset.title' | trans }}{% endblock %}
 
 {% block body %}
-    <h1>{{ 'reset_password.reset.title' | trans }}</h1>
-
-    {{ form_start(resetForm) }}
-        {{ form_widget(resetForm.plainPassword) }}
-        <button class="btn btn-primary">{{ 'reset_password.reset.button' | trans }}</button>
-    {{ form_end(resetForm) }}
+    <div class="container reset_password_form mx-auto w-50">
+        <h1>{{ 'reset_password.reset.title' | trans }}</h1>
+        {{ form_start(resetForm) }}
+            <div class="container">
+                {{ form_widget(resetForm.plainPassword) }}
+            </div>
+            <div class="container">
+                <button class="btn btn-primary w-100 mt-3">{{ 'reset_password.reset.button' | trans }}</button>
+            </div>
+        {{ form_end(resetForm) }}
+    </div>
 {% endblock %}

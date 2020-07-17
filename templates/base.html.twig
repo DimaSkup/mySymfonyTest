@@ -12,6 +12,8 @@
     <body>
     {% set currentRoute = app.request.attributes.get('_route') %}
     {% set currentRouteParams = app.request.attributes.get('_route_params') %}
+    {% set currentQueryParams = app.request.query.get('q') %}
+
     <!--------   NAVIGATION BAR   --------->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
         <a href="#" class="navbar-brand">
@@ -42,9 +44,9 @@
                 <!-- choice of languages -->
                 <div class="dropdown-menu">
 
-                    <a class="dropdown-item" href="{{ path(currentRoute, currentRouteParams|merge({'_locale': 'en'})) }}">English</a>
-                    <a class="dropdown-item" href="{{ path(currentRoute, currentRouteParams|merge({'_locale': 'ru'})) }}">Русский</a>
-                    <a class="dropdown-item" href="{{ path(currentRoute, currentRouteParams|merge({'_locale': 'ua'})) }}">Українська</a>
+                    <a class="dropdown-item" href="{{ path(currentRoute, {'_locale':'en', 'q': currentQueryParams}) }}">English</a>
+                    <a class="dropdown-item" href="{{ path(currentRoute, {'_locale':'ru', 'q': currentQueryParams}) }}">Русский</a>
+                    <a class="dropdown-item" href="{{ path(currentRoute, {'_locale':'ua', 'q': currentQueryParams}) }}">Українська</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">{{ 'nav_bar.other_languages' | trans }}</a>
                 </div>  <!-- /.dropdown-menu -->

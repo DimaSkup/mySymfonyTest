@@ -3,9 +3,11 @@
 {% block title %}{{ 'reset_password.check.title' | trans }}{% endblock %}
 
 {% block body %}
-    <p>{{ 'reset_password.check.email' | trans }} {{ tokenLifetime }} {{ 'reset_password.check.hour' | trans }}</p>
-    <p>
-        {{ 'reset_password.check.if_not_receive' | trans }}
-        <a href="{{ path('app_forgot_password_request') }}">{{ 'reset_password.check.try_again' | trans }}</a>.
-    </p>
+   <div class="container reset_password_form mx-auto p-5 w-50">
+       <p>{{ 'reset_password.check.email' | trans }} {{ tokenLifetime }} {{ 'reset_password.check.hour' | trans }}</p>
+       <p>
+           {{ 'reset_password.check.if_not_receive' | trans }}
+           <a href="{{ path('app_forgot_password_request') }}">{{ 'reset_password.check.try_again' | trans }}</a>.
+       </p>
+   </div>
 {% endblock %}

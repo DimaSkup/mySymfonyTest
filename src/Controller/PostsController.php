@@ -46,10 +46,19 @@ class PostsController extends AbstractController
     }
 
 
-    public function posts()
+    public function posts(Request $request)
     {
         $posts = $this->postRepository->findBy(['is_moderated' => true]);
+        $page = $request->query->get('page');
+        $postsPerPage = 25;
+        $postsForPage[25];
 
+        for ($i = ($page - 1) * $postsPerPage, $counter = 0; $i < $i + $postsPerPage; $i++, $counter++)
+        {
+            $postsForPage[$counter] = $posts[$i];
+        }
+
+        dd($postsForPage);
         return $this->render('posts/index.html.twig', [
             'posts' => $posts
         ]);

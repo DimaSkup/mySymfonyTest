@@ -32,7 +32,7 @@ class AppFixtures extends Fixture
         $this->userRepository = $userRepository;
         $this->passwordEncoder = $passwordEncoder;
 
-        $this->fakePostsCount = 20;
+        $this->fakePostsCount = 50;
         $this->fakeUsersCount = 5;
     }
 
@@ -54,7 +54,8 @@ class AppFixtures extends Fixture
                  ->setSlug($this->slug->slugify(substr($post->getText(), 0, 20)))
                  ->setCreatedAt($this->faker->dateTime)
                  ->setUser($this->userRepository->findOneBy(['email' => rand(1, $this->fakeUsersCount).'@gmail.com']))
-                 ->setIsModerated(true);
+                 ->setIsModerated(true)
+                 ->setImage('animal_'.mt_rand(1, 10).'.jpg');
 
             $manager->persist($post);
         }

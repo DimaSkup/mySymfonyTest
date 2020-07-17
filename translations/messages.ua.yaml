@@ -35,6 +35,8 @@ posts:
   # query_post.html.twig
   query_post:
     title: 'Пошук посту'
+    search_results: 'Результати пошуку:'
+    no_results: 'Жодних результатів'
     main_page: 'Головна сторінка'
 
 # directory "templates/reset_password"

@@ -35,23 +35,23 @@ blog_show:
 
 register:
     path: /{_locale}/register
-    controller: App\Controller\RegisterConstroller::register
+    controller: App\Controller\RegisterController::register
     requirements: {_locale: '%router.locales%'}
 
 email_confirmation:
     path: /{_locale}/confirm/{code}
-    controller: App\Controller\RegisterConstroller::confirmEmail
+    controller: App\Controller\RegisterController::confirmEmail
+    requirements: {_locale: '%router.locales%'}
+
+app_reset_password:
+    path: /{_locale}/reset/{token?}
+    controller: App\Controller\ResetPasswordController::reset
     requirements: {_locale: '%router.locales%'}
 
 app_forgot_password_request:
     path: /{_locale}/reset-password
     controller: App\Controller\ResetPasswordController::request
     requirements: {_locale: '%router.locales%'}
-
-app_reset_password:
-    path: /{_locale}/reset/{token}
-    controller: App\Controller\ResetPasswordController::reset
-    requirements: {_locale: '%router.locales%', page: '\d?'}
 
 login:
     path: /{_locale}/login

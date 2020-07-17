@@ -3,15 +3,36 @@
 {% block title %}{{ 'posts.query_post.title' | trans }}{% endblock %}
 
 {% block body %}
-    {% for post in posts %}
-        <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                <a href="{{ path('blog_show', {slug: post.slug}) }}">{{ post.text | slice(0,30) ~ '...' }}</a>
-                    {{ post.text | slice(0, 255) ~ '...' }}
-            </p>
-        </div>
-    {% endfor %}
-    <small class="d-block text-right mt-3">
-        <a href="{{ path('blog_posts') }}">{{ 'posts.query_post.main_page' | trans }}</a>
-    </small>
+
+   <div class="container mx-auto w-75 pt-3">
+       <div class="media search_post text-dark p-2">
+           <h2>{{ 'posts.query_post.search_results' | trans }}</h2>
+       </div>
+        {% if posts %}
+           {% for post in posts %}
+               <div class="media search_post text-muted p-2">
+                   <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                       <a href="{{ path('blog_show', {slug: post.slug}) }}">{{ post.text | slice(0,30) ~ '...' }}</a>
+                       {{ post.text | slice(0, 255) ~ '...' }}
+                   </p>
+               </div>
+           {% endfor %}
+        {% else %}
+           <div class="media search_post text-muted p-2">
+               <h5 class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
+                   {{ 'posts.query_post.no_results' | trans }}
+               </h5>
+           </div>
+        {% endif %}
+
+   </div>  <!-- /.container -->
+
+    <div class="container fixed-bottom m-3">
+        <a href="{{ path('blog_posts') }}">
+            <button class="btn btn-info">
+                {{ 'posts.query_post.main_page' | trans }}
+            </button>
+        </a>
+    </div>
+
 {% endblock %}

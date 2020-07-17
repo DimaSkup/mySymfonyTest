@@ -30,14 +30,23 @@ class ChangePasswordFormType extends AbstractType
                         ]),
                     ],
                     'label' => 'New password',
+                    'attr' => [
+                        'placeholder' => 'reset_password.request.placeholder_email',
+                        'class' => 'form-control',
+                    ]
                 ],
                 'second_options' => [
                     'label' => 'Repeat Password',
+                    'attr' => [
+                        'placeholder' => 'reset_password.request.placeholder_email',
+                        'class' => 'form-control'
+                    ]
                 ],
                 'invalid_message' => 'The password fields must match.',
                 // Instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
+
             ])
         ;
     }
