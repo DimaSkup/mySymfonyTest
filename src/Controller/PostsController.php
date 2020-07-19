@@ -6,7 +6,10 @@ use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use Cocur\Slugify\Slugify;
+use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +21,7 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig\Environment;
 
-class PostsController extends AbstractController
+class PostsController extends Controller
 {
     /** @var PostRepository $postRepository */
     private $postRepository;
@@ -48,20 +51,14 @@ class PostsController extends AbstractController
 
     public function posts(Request $request)
     {
-        $posts = $this->postRepository->findBy(['is_moderated' => true]);
-        //dd($posts);
-        $page = $request->query->get('page');
-        $postsPerPage = 25;
-        $postsForPage[] = array();
-        $firstPostNumForCurPage = ($page - 1) * $postsPerPage;
 
-        for ($i = $firstPostNumForCurPage; $i < $firstPostNumForCurPage + $postsPerPage; $i++)
-        {
-            $postsForPage[] = $posts[$i];
-        }
-        //dd($postsForPage);
+        $postRepository = $this->getDoctrine()->getRepository(Post::class);
+        $page = intval($request->query->get('page', 1));
+        $resultPerPage = 25;
+        $posts = $postRepository->findAllPaginated($page, $resultPerPage);
+
         return $this->render('posts/index.html.twig', [
-            'posts' => $postsForPage
+            'posts' => $posts
         ]);
     }
 

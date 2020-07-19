@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * @method Post|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,6 +13,8 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method Post[]    findAll()
  * @method Post[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+
+
 class PostRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -37,7 +40,18 @@ class PostRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
-    
+    public function findAllPaginated($startPage = 0, $resultPerPage = 5)
+    {
+        $start = ($startPage - 1) * $resultPerPage;
+
+        return $this->findBy(
+            ['is_moderated' => true],
+            ['created_at' => 'DESC'],
+            $resultPerPage,
+            $start
+        );
+    }
+
 
     // /**
     //  * @return Post[] Returns an array of Post objects
