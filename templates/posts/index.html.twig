@@ -132,30 +132,32 @@
 
     <div class="container post mx-auto">
         {% for post in posts %}
-            <br>
-            <div class="mx-2 mt-2">
-                <h3><a href="{{ path('blog_show', {'slug': post.slug}) }}">{{ post.text  | slice(0, 30) ~ '...' }}</a></h3>
-            </div>
-            {% if post.image %}
-                <div class="m-2">
-                    <img src="{{ asset('uploads/images/blog_images/' ~ post.image) }}" class="w-75">
+            {% if post %}
+                <br>
+                <div class="mx-2 mt-2">
+                    <h3><a href="{{ path('blog_show', {'slug': post.slug}) }}">{{ post.text  | slice(0, 30) ~ '...' }}</a></h3>
                 </div>
+                {% if post.image %}
+                    <div class="m-2">
+                        <img src="{{ asset('uploads/images/blog_images/' ~ post.image) }}" class="w-75">
+                    </div>
+                {% endif %}
+                <div class="text mx-2">
+                    {{ post.text }}
+                </div>
+                <div class="m-2">
+                    <a href="{{ path('blog_show', {'slug': post.slug}) }}">
+                        <button class="btn btn-dark">
+                            Read more
+                        </button>
+                    </a>
+                </div>
+                <div class="dropdown-divider my-2" style="border-color: darkgrey;"></div>
+                <span class="mx-2">{{ post.createdAtString }}</span>
+                <span class="mx-2">{{ 'posts.main_page.by' | trans }} {{ post.username }}</span>
+                <div class="dropdown-divider my-2" style="border-color: darkgrey;"></div>
+                <br>
             {% endif %}
-            <div class="text mx-2">
-                {{ post.text }}
-            </div>
-            <div class="m-2">
-                <a href="{{ path('blog_show', {'slug': post.slug}) }}">
-                    <button class="btn btn-dark">
-                        Read more
-                    </button>
-                </a>
-            </div>
-            <div class="dropdown-divider my-2" style="border-color: darkgrey;"></div>
-            <span class="mx-2">{{ post.createdAtString }}</span>
-            <span class="mx-2">{{ 'posts.main_page.by' | trans }} {{ post.username }}</span>
-            <div class="dropdown-divider my-2" style="border-color: darkgrey;"></div>
-            <br>
         {% endfor %}
     </div>  <!-- / .container post -->
 
