@@ -59,6 +59,7 @@ class ResetPasswordController extends AbstractController
      */
     public function request(Request $request): Response
     {
+
         $this->getDoctrine()->getRepository(ResetPasswordRequest::class)->deleteExpiredToken();
 
         $form = $this->createForm(ResetPasswordRequestFormType::class);
@@ -149,6 +150,12 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
+
+    public function checkEmail()
+    {
+        return new Response("<html><body><h1>Such an email doesn't exist!</h1></body></html>");
+    }
+
     /**
      * @param string $emailFormData
      * @return RedirectResponse|Response
@@ -190,6 +197,7 @@ class ResetPasswordController extends AbstractController
 
         // sending an email
         $this->mailer->send($message);
+
 
         return $this->render('reset_password/check_email.html.twig', [
             'tokenLifetime' => $this->tokenLifetime,

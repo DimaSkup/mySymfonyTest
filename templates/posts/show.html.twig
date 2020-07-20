@@ -4,24 +4,29 @@
 
 {% block body %}
     <div class="container post_show my-3 mx-auto ">
-        <div class="pt-4">
+        <div class="py-4">
             {{ post.text }}
         </div>
         {% if post.image %}
             <div class="m-auto">
-                <img src="{{ asset('uploads/images/blog_images' ~ post.image) }}">
+                <img src="{{ asset('uploads/images/blog_images/' ~ post.image) }}" class="w-100">
             </div>
         {% endif %}
+        <div class="mt-2 mb-4">
+            <span class="mr-2">{{ post.createdAtString }}</span>
+            <span class="mr-2">{{ 'posts.main_page.by' | trans }} {{ post.username }}</span>
+            <span class="mr-2">{{ post.email }}</span>
+        </div>
 
         {% if app.user %}
             {% if postIsByCurrentUser %}
                 <div class="my-2">
-                    <a href="{{ path('blog_post_edit', {'slug': post.slug}) }}">
+                    <a href="{{ path('blog_post_edit', {'slug': post.slug, 'page': currentPage}) }}">
                         <button class="btn btn-outline-success mr-2">
                             {{ 'posts.show_single_post.edit' | trans }}
                         </button>
                     </a>
-                    <a href="{{ path('blog_post_delete', {'slug': post.slug}) }}">
+                    <a href="{{ path('blog_post_delete', {'slug': post.slug, 'page': currentPage}) }}">
                         <button class="btn btn-outline-danger">
                             {{ 'posts.show_single_post.delete' | trans }}
                         </button>
@@ -30,8 +35,13 @@
             {% endif %}
         {% endif %}
         <div class="my-2">
-            <a href="{{ path('blog_posts') }}">
-                <button class="btn btn-light back_button">
+            {% set referPage = app.request.server.get('HTTP_REFERER') %}
+            {% if currentPage != null %}
+                <a href="{{ path('blog_posts', {'page': currentPage}) }}">
+            {% else %}
+                <a href="{{ referPage }}">
+            {% endif %}
+                <button class="btn btn-dark back_button mb-2">
                     {{ 'posts.show_single_post.back' | trans }}
                 </button>
             </a>

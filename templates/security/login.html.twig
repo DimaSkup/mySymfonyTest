@@ -32,8 +32,7 @@
         </div>
 
         <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
+               value="{{ csrf_token('authenticate') }}">
         <p>
             <a href="{{ path("app_forgot_password_request") }}">{{ 'security.login.reset_password' | trans }}</a>
         </p>

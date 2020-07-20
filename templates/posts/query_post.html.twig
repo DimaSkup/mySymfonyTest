@@ -28,8 +28,8 @@
    </div>  <!-- /.container -->
 
     <div class="container fixed-bottom m-3">
-        <a href="{{ path('blog_posts') }}">
-            <button class="btn btn-info">
+        <a href="{{ path('blog_posts', {'page': 1}) }}">
+            <button class="btn btn-light">
                 {{ 'posts.query_post.main_page' | trans }}
             </button>
         </a>

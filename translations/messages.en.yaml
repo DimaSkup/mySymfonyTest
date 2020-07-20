@@ -9,14 +9,15 @@ nav_bar:
   find_post_button: 'Find post'
 
 # directory "templates/posts"
-  # index.html.twig
 posts:
+  # index.html.twig
   main_page:
     title: 'List of the posts'
     slider_greeting_1: 'Welcome to the guestbook'
     slider_greeting_2: 'Guestbook allows site users to leave messages on the site.'
     slider_greeting_3: 'Leave a message and others will see it!'
     create_new_post : 'Create a new post'
+    read_more: 'Read more'
     by : 'by'
   # new.html.twig
   new_post:

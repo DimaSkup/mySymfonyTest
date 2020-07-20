@@ -9,14 +9,15 @@ nav_bar:
   find_post_button: 'Знайти пост'
 
 # directory "templates/posts"
-  # index.html.twig
 posts:
+  # index.html.twig
   main_page:
     title: 'Список постів'
     slider_greeting_1: 'Вітаємо в гостьовій книзі'
     slider_greeting_2:  'Гостьова книга надає можливість користувачам сайту залишати повідомлення на сайті.'
     slider_greeting_3:  'Залиште повідомлення й інші користувачі почабачать його!'
     create_new_post: 'Створити новий пост'
+    read_more: 'Читати пост'
     by : 'створено'
   # new.html.twig
   new_post:

@@ -53,6 +53,11 @@ app_forgot_password_request:
     controller: App\Controller\ResetPasswordController::request
     requirements: {_locale: '%router.locales%'}
 
+app_check_email:
+    path: /{_locale}/reset-password/check-email
+    controller: App\Controller\ResetPasswordController::checkEmail
+    requirements: {_locale: '%router.locales%'}
+
 login:
     path: /{_locale}/login
     controller: App\Controller\SecurityController::login

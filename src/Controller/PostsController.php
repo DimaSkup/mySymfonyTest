@@ -45,7 +45,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return $this->redirectToRoute("blog_posts");
+        return $this->redirectToRoute("blog_posts", ['page' => 1]);
     }
 
 
@@ -55,10 +55,12 @@ class PostsController extends Controller
         $postRepository = $this->getDoctrine()->getRepository(Post::class);
         $page = intval($request->query->get('page', 1));
         $resultPerPage = 25;
-        $posts = $postRepository->findAllPaginated($page, $resultPerPage);
+        $numPages = 0;
+        $posts = $postRepository->findAllPaginated($numPages, $page, $resultPerPage);
 
         return $this->render('posts/index.html.twig', [
-            'posts' => $posts
+            'posts' => $posts,
+            'numPages' => $numPages,
         ]);
     }
 
@@ -231,6 +233,7 @@ class PostsController extends Controller
             ]);
         }
 
+
         return $this->render('posts/new.html.twig', [
             'form' => $form->createView()
         ]);
@@ -258,11 +261,12 @@ class PostsController extends Controller
      */
     public function post(Post $post)
     {
-        $user = $this->getUser();
+        $userPostEmail = $post->getEmail();
+        $currUserEmail = $this->getUser()->getUsername();
 
         // check if this post was created by the current user
         // if so, we will allow him to edit this post
-        if ($post->getUser() === $user)
+        if ($userPostEmail === $currUserEmail)
             $postIsByCurrentUser = true;
         else
             $postIsByCurrentUser = false;

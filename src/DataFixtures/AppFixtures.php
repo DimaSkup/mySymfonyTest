@@ -32,7 +32,7 @@ class AppFixtures extends Fixture
         $this->userRepository = $userRepository;
         $this->passwordEncoder = $passwordEncoder;
 
-        $this->fakePostsCount = 50;
+        $this->fakePostsCount = 200;
         $this->fakeUsersCount = 5;
     }
 
@@ -48,7 +48,7 @@ class AppFixtures extends Fixture
         {
             $post = new Post();
             $post->setUsername($this->faker->text(10))
-                 ->setEmail($this->faker->numberBetween(0, 6)."@gmail.com")
+                 ->setEmail($this->faker->numberBetween(1, 6)."@gmail.com")
                  ->setHomepage($this->faker->text(10)."com")
                  ->setText($this->faker->text(500))
                  ->setSlug($this->slug->slugify(substr($post->getText(), 0, 20)))

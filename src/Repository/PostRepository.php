@@ -40,9 +40,16 @@ class PostRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
-    public function findAllPaginated($startPage = 0, $resultPerPage = 5)
+    public function findAllPaginated(&$num_pages, $startPage = 0, $resultPerPage = 5)
     {
         $start = ($startPage - 1) * $resultPerPage;
+        $dql = "SELECT COUNT(*) FROM App\Entity\Post post";
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery('SELECT COUNT(p.id) FROM App\Entity\Post p');
+        $rows_num = $query->getSingleScalarResult();
+
+        $num_pages = ceil($rows_num / $resultPerPage);
 
         return $this->findBy(
             ['is_moderated' => true],

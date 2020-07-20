@@ -3,15 +3,18 @@
 {% block title %}{{ 'posts.new_post.title' | trans }}{% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
-        <p>{{ 'posts.new_post.username' | trans }}{{ form_widget(form.username) }}</p>
-        <p>{{ 'posts.new_post.email' | trans }}{{ form_widget(form.email) }}</p>
-        <p>{{ 'posts.new_post.homepage' | trans }}{{ form_widget(form.homepage) }}</p>
+    <div class="container edit-post mx-auto pt-3">
+        {{ form_start(form, {'attr': {'class': 'form-group'}}) }}
+        <p>{{ 'posts.new_post.username' | trans }}{{ form_widget(form.username, {'attr': {'class': 'text-left  w-100'}}) }}</p>
+        <p>{{ 'posts.new_post.email' | trans }}{{ form_widget(form.email, {'attr': {'class': 'text-left  w-100'}}) }}</p>
+        <p>{{ 'posts.new_post.homepage' | trans }}{{ form_widget(form.homepage, {'attr': {'class': 'text-left  w-100'}}) }}</p>
         <p>{{ 'posts.new_post.text' | trans }}{{ form_widget(form.text, { 'attr': {
-            'rows' : '10',
-            'cols' : '10' }}) }}</p>
+                'class': 'text-left  w-100',
+                'rows' : '10',
+                'cols' : '10' }}) }}</p>
         <p>{{ 'posts.new_post.image' | trans }}{{ form_widget(form.image) }}</p>
         <div class="g-recaptcha" data-sitekey="6Lft7qwZAAAAAEEe3JtEoGhlKDp6c8mcqinPq-PR"></div>
-        <button class="btn btn-dark" name="enter" type="submit">{{ 'posts.new_post.button' | trans }}</button>
-    {{ form_end(form) }}
+        <button class="btn btn-dark mt-2" name="enter" type="submit">{{ 'posts.new_post.button' | trans }}</button>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
