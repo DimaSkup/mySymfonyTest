@@ -23,7 +23,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->setRoles([self::ROLE_USER]);
-        $this->setEnable(false);
+        $this->setEnabled(false);
         $this->passwordEncoder = UserPasswordEncoderInterface::class;
         $this->posts = new ArrayCollection();
 
@@ -142,11 +142,11 @@ class User implements UserInterface
     }
 
     /**
-     * @param string $plainPassword
+     * @param string|null $plainPassword
      *
      * @return User
      */
-    public function setPlainPassword(string $plainPassword): self
+    public function setPlainPassword(?string $plainPassword): self
     {
         $this->plainPassword = $plainPassword;
         return $this;
@@ -201,7 +201,7 @@ class User implements UserInterface
      *
      * @return User
      */
-    public function setEnable(bool $enabled): self
+    public function setEnabled(bool $enabled): self
     {
         $this->enabled = $enabled;
         return $this;
@@ -253,6 +253,44 @@ class User implements UserInterface
     }
 
     /**
+     * @param string $browserData
+     * @return User
+     */
+    public function setUserBrowserData(string $browserData): self
+    {
+        $this->userBrowserData = $browserData;
+        return $this;
+    }
+
+    /**
+     * @param void
+     * @return string
+     */
+    public function getUserBrowserData(): string
+    {
+        return $this->userBrowserData;
+    }
+
+    /**
+     * @param string $userIp
+     * @return User
+     */
+    public function setUserIp(string $userIp): self
+    {
+        $this->userIp = $userIp;
+        return $this;
+    }
+
+    /**
+     * @param void
+     * @return string
+     */
+    public function getUserIp(): string
+    {
+        return $this->userIp;
+    }
+
+    /**
      * @var int
      *
      * @ORM\Id()
@@ -277,7 +315,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @var string
+     * @var string|null
      * @Assert\NotBlank()
      */
     private $plainPassword;
@@ -316,4 +354,18 @@ class User implements UserInterface
      * OneToMany(targetEntity=ResetPasswordRequest::class, mappedBy="User")
      */
     private $resetToken;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $userBrowserData;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $userIp;
 }

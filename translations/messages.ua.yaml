@@ -39,6 +39,11 @@ posts:
     search_results: 'Результати пошуку:'
     no_results: 'Жодних результатів'
     main_page: 'Головна сторінка'
+  # message_after_create_post.html.twig
+  mes_aft_cr_post:
+    title: ' '
+    text: 'Ваш пост буде відображатись після проходження модерації'
+    button: 'На головну сторінку'
 
 # directory "templates/reset_password"
 reset_password:
@@ -84,6 +89,8 @@ security:
   # login.html.twig
   login:
     title: 'Авторизація'
+    user: 'Користувач'
+    is_banned: 'заблокований!'
     placeholder_email: 'Введіть свою ел.адресу'
     placeholder_password: 'Введіть свій пароль'
     logged_in_as: 'Ви увійшли як'

@@ -49,8 +49,11 @@ class RegisterController extends AbstractController
                 $user,
                 $user->getPlainPassword()
             );
-            $user->setPassword($password);
-            $user->setConfirmationCode($codeGenerator->getConfirmationCode());
+
+            $user->setPassword($password)
+                 ->setConfirmationCode($codeGenerator->getConfirmationCode())
+                 ->setUserBrowserData($request->headers->get('user-agent'))
+                 ->setUserIp($request->getClientIp());
 
             $em = $this->getDoctrine()->getManager();
 
@@ -78,7 +81,7 @@ class RegisterController extends AbstractController
             return new Response('404');
         }
 
-        $user->setEnable(true);
+        $user->setEnabled(true);
         $user->setConfirmationCode('');
 
         $em->flush();

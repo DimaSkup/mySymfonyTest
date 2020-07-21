@@ -17,6 +17,12 @@ posts:
     slider_greeting_2: 'Guestbook allows site users to leave messages on the site.'
     slider_greeting_3: 'Leave a message and others will see it!'
     create_new_post : 'Create a new post'
+    sort_by:
+      sort_by: 'Sort by'
+      username: 'username'
+      email: 'email'
+      first_new: 'first new'
+      first_old: 'first old'
     read_more: 'Read more'
     by : 'by'
   # new.html.twig
@@ -39,6 +45,11 @@ posts:
     search_results: 'Search results:'
     no_results: 'No results'
     main_page: 'Main page'
+  # message_after_create_post.html.twig
+  mes_aft_cr_post:
+    title: ' '
+    text: 'Your post will be displayed after moderation'
+    button: 'To the main page'
 
 # directory "templates/reset_password"
 reset_password:
@@ -84,6 +95,8 @@ security:
   # login.html.twig
   login:
     title: 'Log in'
+    user: 'User'
+    is_blocked: 'is blocked!'
     placeholder_email: 'Type your email'
     placeholder_password: 'Type your password'
     logged_in_as: 'You are logged in as'

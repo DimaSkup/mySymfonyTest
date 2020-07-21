@@ -3,6 +3,13 @@
 {% block title %}{{ 'security.login.title' | trans }}{% endblock %}
 
 {% block body %}
+    {% if isUserBlocked %}
+        <div class="container test_login mx-auto p-5 w-25">
+            <div class="text-center">
+                <h4>{{ 'security.login.user' | trans }} {{ last_username }} {{ 'security.login.is_blocked' | trans }}</h4>
+            </div>
+        </div>
+    {% endif %}
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>

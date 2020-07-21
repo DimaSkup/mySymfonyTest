@@ -51,12 +51,22 @@ class PostsController extends Controller
 
     public function posts(Request $request)
     {
-
         $postRepository = $this->getDoctrine()->getRepository(Post::class);
         $page = intval($request->query->get('page', 1));
+        $displayOrder = $request->query->get('display_order');
         $resultPerPage = 25;
         $numPages = 0;
         $posts = $postRepository->findAllPaginated($numPages, $page, $resultPerPage);
+
+
+
+
+
+
+
+
+
+        dd($posts);
 
         return $this->render('posts/index.html.twig', [
             'posts' => $posts,
@@ -64,6 +74,10 @@ class PostsController extends Controller
         ]);
     }
 
+    private function sortPostSetBy($postSetForSort, $sortBy)
+    {
+        usort($postSetForSort, function($post1, $post2) use($sortBy))
+    }
 
 
     /**
@@ -148,7 +162,8 @@ class PostsController extends Controller
             $em->flush();
 
 
-            return $this->redirectToRoute('blog_posts');
+            //return $this->redirectToRoute('blog_posts', ['page' => 1]);
+            return $this->render('posts/message_аfter_сreate_post.html.twig');
         }
 
         return $this->render('posts/new.html.twig', [
@@ -244,13 +259,14 @@ class PostsController extends Controller
      * @param Post $post
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function delete(Post $post)
+    public function delete(Post $post, Request $request)
     {
+        $currentPage = ($request->query->get('page'));
         $em = $this->getDoctrine()->getManager();
         $em->remove($post);
         $em->flush();
 
-        return $this->redirectToRoute('blog_posts');
+        return $this->redirectToRoute('blog_posts', ['page' => $currentPage]);
     }
 
 

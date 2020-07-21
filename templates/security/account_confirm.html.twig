@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h5>{{ 'security.account_conf.congratulation' | trans }}</h5>
-    <p>{{ 'security.account_conf.acc_was_conf' | trans }}
-        <a href="{{ path('login') }}">{{ 'security.account_conf.sign_in' | trans }}</a></p>
+    <div class="container confirm-email mx-auto w-50 mt-5 pt-2">
+        <h5>{{ 'security.account_conf.congratulation' | trans }}</h5>
+        <p>{{ 'security.account_conf.acc_was_conf' | trans }}
+            <br/><a href="{{ path('login') }}">{{ 'security.account_conf.sign_in' | trans }}</a>
+        </p>
+    </div>
 {% endblock %}

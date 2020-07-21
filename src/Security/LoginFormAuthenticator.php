@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -79,7 +80,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
+        $isPasswordValid = $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
+        $isUserEnabled = $user->getEnabled();
+        if ($isPasswordValid && $isUserEnabled)
+            return true;
+        else
+            return false;
     }
 
     /**
@@ -97,6 +103,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         }
 
         return new RedirectResponse($this->urlGenerator->generate('blog_posts', ['page' => 1]));
+    }
+
+    public function onAuthenticationFailure(Request $request, $providerKey)
+    {
+        return new RedirectResponse($this->urlGenerator->generate('login', ['isUserBlocked' => true]));
     }
 
     protected function getLoginUrl()

@@ -102,6 +102,7 @@ class PostAdmin extends AbstractAdmin
             ->addIdentifier('username')
             ->add('email')
             ->add('text')
+            ->add('created_at')
             ->add('is_moderated');
     }
 

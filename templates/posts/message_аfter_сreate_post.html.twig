@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'posts.mes_aft_cr_post.title' | trans}}{% endblock %}
+
+{% block body %}
+    <div class="container after-create-post mx-auto w-50 mt-5 pt-2">
+        {{ 'posts.mes_aft_cr_post.text' | trans}}
+        <div class="mt-2">
+            <a href="{{ path('blog_posts', {'page': 1}) }}">
+                <button class="btn btn-info back_button">
+                    {{ 'posts.mes_aft_cr_post.button'  | trans }}
+                </button>
+            </a>
+        </div>
+    </div>
+{% endblock %}

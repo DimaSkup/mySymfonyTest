@@ -11,6 +11,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use App\Repository\UserRepository;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
@@ -22,10 +23,12 @@ class AppFixtures extends Fixture
     private $userRepository;
     private $fakePostsCount;
     private $fakeUsersCount;
+    private $request;
 
 
 
-    public function __construct(Slugify $slugify, UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(Slugify $slugify, UserRepository $userRepository,
+                                UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->faker = Factory::create();
         $this->slug = $slugify;
@@ -77,8 +80,10 @@ class AppFixtures extends Fixture
             $user->setEmail($i.'@gmail.com')
                  ->setPassword($encodedPassword)       // set encoded password as a user password
                  ->setRoles([User::ROLE_USER])
-                 ->setEnable(true)
-                 ->setIsVerified(true);
+                 ->setEnabled(true)
+                 ->setIsVerified(true)
+                 ->setUserBrowserData("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0")
+                 ->setUserIp("127.0.0.1");
 
             $manager->persist($user);
         }

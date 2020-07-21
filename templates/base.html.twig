@@ -16,6 +16,7 @@
     {% set currentPage = app.request.query.get('page') %}
     {% set slug = app.request.attributes.get('slug') %}
     {% set referPage = app.request.server.get('HTTP_REFERER') %}
+    {% set confirmCode = app.request.attributes.get('code') %}
 
     <!--------   NAVIGATION BAR   --------->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
@@ -47,9 +48,9 @@
                 <!-- choice of languages -->
                 <div class="dropdown-menu">
 
-                    <a class="dropdown-item" href="{{ path(currentRoute, {'_locale':'en', 'slug': slug, 'page': currentPage, 'q': currentQueryParams})  }}">English</a>
-                    <a class="dropdown-item" href="{{ path(currentRoute, {'_locale':'ru', 'slug': slug, 'page': currentPage, 'q': currentQueryParams})  }}">Русский</a>
-                    <a class="dropdown-item" href="{{ path(currentRoute, {'_locale':'ua', 'slug': slug, 'page': currentPage, 'q': currentQueryParams})  }}">Українська</a>
+                    <a class="dropdown-item" href="{{ path(currentRoute, {'_locale':'en', 'slug': slug, 'code': confirmCode, 'page': currentPage, 'q': currentQueryParams})  }}">English</a>
+                    <a class="dropdown-item" href="{{ path(currentRoute, {'_locale':'ru', 'slug': slug, 'code': confirmCode, 'page': currentPage, 'q': currentQueryParams})  }}">Русский</a>
+                    <a class="dropdown-item" href="{{ path(currentRoute, {'_locale':'ua', 'slug': slug, 'code': confirmCode, 'page': currentPage, 'q': currentQueryParams})  }}">Українська</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">{{ 'nav_bar.other_languages' | trans }}</a>
                 </div>  <!-- /.dropdown-menu -->
