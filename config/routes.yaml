@@ -5,7 +5,7 @@
 blog_posts:
     path: /{_locale}/posts
     controller: App\Controller\PostsController::posts
-    requirements: {_locale: '%router.locales%'}
+    requirements: {_locale: '%router.locales%', display_order: 'created_at'}
 
 
 new_blog_post:

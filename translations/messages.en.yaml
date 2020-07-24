@@ -25,6 +25,10 @@ posts:
       first_old: 'first old'
     read_more: 'Read more'
     by : 'by'
+  # pagination.html.twig
+  pagination:
+    first_pg_button: 'First'
+    last_pg_button: 'Last'
   # new.html.twig
   new_post:
     title: 'Creating a new post'

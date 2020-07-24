@@ -45,7 +45,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return $this->redirectToRoute("blog_posts", ['page' => 1]);
+        return $this->redirectToRoute("blog_posts", ['page' => 1, 'display_order' => 'created_at']);
     }
 
 
@@ -53,20 +53,31 @@ class PostsController extends Controller
     {
         $postRepository = $this->getDoctrine()->getRepository(Post::class);
         $page = intval($request->query->get('page', 1));
-        $displayOrder = $request->query->get('display_order');
+        $sortBy = $request->query->get('display_order');
         $resultPerPage = 25;
         $numPages = 0;
+
+
+
         $posts = $postRepository->findAllPaginated($numPages, $page, $resultPerPage);
 
+        if ($sortBy === 'old')
+        {
+            $order = "ASC";
+            $posts = $this->sortPostSetBy($posts, "created_at", $order);
+        }
+        else if ($sortBy === 'new')
+        {
+            $order = "DESC";
+            $posts = $this->sortPostSetBy($posts, "created_at", $order);
+        }
+        else
+        {
+            $posts = $this->sortPostSetBy($posts, $sortBy);
+        }
 
 
 
-
-
-
-
-
-        dd($posts);
 
         return $this->render('posts/index.html.twig', [
             'posts' => $posts,
@@ -74,9 +85,45 @@ class PostsController extends Controller
         ]);
     }
 
-    private function sortPostSetBy($postSetForSort, $sortBy)
+    public function sortPostSetBy($postSetForSort, $sortBy, $order = "ASC")
     {
-        usort($postSetForSort, function($post1, $post2) use($sortBy))
+        if ($sortBy === "created_at")
+        {
+            if ($order === "DESC")
+            {
+                usort($postSetForSort, function($post1, $post2)
+                {
+                    if ($post1->getCreatedAt() == $post2->getCreatedAt()) return 0;
+                    return ($post1->getCreatedAt() > $post2->getCreatedAt()) ? -1 : 1;
+                });
+            }
+            else if ($order === "ASC")
+            {
+                usort($postSetForSort, function($post1, $post2)
+                {
+                    if ($post1->getCreatedAt() == $post2->getCreatedAt()) return 0;
+                    return ($post1->getCreatedAt() < $post2->getCreatedAt()) ? -1 : 1;
+                });
+            }
+        }
+        else if ($sortBy === "username")
+        {
+            usort($postSetForSort, function($post1, $post2)
+            {
+                if ($post1->getUsername() == $post2->getUsername()) return 0;
+                return ($post1->getUsername() < $post2->getUsername()) ? -1 : 1;
+            });
+        }
+        else if ($sortBy === "email")
+        {
+            usort($postSetForSort, function($post1, $post2)
+            {
+                if ($post1->getEmail() == $post2->getEmail()) return 0;
+                return ($post1->getEmail() < $post2->getEmail()) ? -1 : 1;
+            });
+        }
+
+        return $postSetForSort;
     }
 
 
@@ -278,7 +325,12 @@ class PostsController extends Controller
     public function post(Post $post)
     {
         $userPostEmail = $post->getEmail();
-        $currUserEmail = $this->getUser()->getUsername();
+        if ($currUser = $this->getUser())
+        {
+            $currUserEmail = $currUser->getUsername();
+        }
+        else
+            $currUserEmail = null;
 
         // check if this post was created by the current user
         // if so, we will allow him to edit this post
@@ -292,20 +344,4 @@ class PostsController extends Controller
             'postIsByCurrentUser' => $postIsByCurrentUser
         ]);
     }
-
-    /*
-     * @Route("/trans_example", name="trans_example")
-     *
-    public function transExample(Environment $twig, Request $request)
-    {
-        $response = new Response();
-        //$str_trans = $translator->trans('Book is great');
-        $str_trans = "Symfony is great";
-        $template = $twig->render('trans_example.html.twig', [
-            'text' => $str_trans
-        ]);
-        $response->setContent($template);
-        return $response;
-    }
-    */
 }

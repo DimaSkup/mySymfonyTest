@@ -150,12 +150,10 @@
                             </button>
                             <!-- button to select the order of display of posts -->
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ path(currentRoute, {'_locale':'en', 'page': currentPage, 'display_order': 'username'})  }}">{{ 'posts.main_page.sort_by.username' | trans }}</a>
-                                <a class="dropdown-item" href="{{ path(currentRoute, {'_locale':'ru', 'page': currentPage, 'display_order': 'email'})  }}">{{ 'posts.main_page.sort_by.email' | trans }}</a>
-                                <a class="dropdown-item" href="{{ path(currentRoute, {'_locale':'ua', 'page': currentPage, 'display_order': 'new'})  }}">{{ 'posts.main_page.sort_by.first_new' | trans }}</a>
-                                <a class="dropdown-item" href="{{ path(currentRoute, {'_locale':'ua', 'page': currentPage, 'display_order': 'old'})  }}">{{ 'posts.main_page.sort_by.first_old' | trans }}</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">{{ 'nav_bar.other_languages' | trans }}</a>
+                                <a class="dropdown-item" href="{{ path(currentRoute, {'page': currentPage, 'display_order': 'username'})  }}">{{ 'posts.main_page.sort_by.username' | trans }}</a>
+                                <a class="dropdown-item" href="{{ path(currentRoute, {'page': currentPage, 'display_order': 'email'})  }}">{{ 'posts.main_page.sort_by.email' | trans }}</a>
+                                <a class="dropdown-item" href="{{ path(currentRoute, {'page': currentPage, 'display_order': 'new'})  }}">{{ 'posts.main_page.sort_by.first_new' | trans }}</a>
+                                <a class="dropdown-item" href="{{ path(currentRoute, {'page': currentPage, 'display_order': 'old'})  }}">{{ 'posts.main_page.sort_by.first_old' | trans }}</a>
                             </div>  <!-- /.dropdown-menu -->
                         </div>  <!-- /.btn-group -->
                     </div>

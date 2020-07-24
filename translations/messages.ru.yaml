@@ -17,8 +17,18 @@ posts:
     slider_greeting_2: 'Гостевая книга дает возможность пользователям сайта оставлять сообщения на сайте'
     slider_greeting_3: 'Оставьте сообщение и другие пользователи увидят его!'
     create_new_post: 'Создать новый пост'
+    sort_by:
+      sort_by: 'Сортировать по'
+      username: 'Имя пользователя'
+      email: 'Эл. адрес'
+      first_new: 'Сначала новые'
+      first_old: 'Сначала старые'
     read_more: 'Читать пост'
     by : 'создано'
+  # pagination.html.twig
+  pagination:
+    first_pg_button: 'Первая'
+    last_pg_button: 'Последняя'
   # new.html.twig
   new_post:
     title: 'Создание нового поста'
