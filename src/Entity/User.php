@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -18,13 +17,16 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface
 {
+    public const GITHUB_OAUTH = 'Github';
+    public const GOOGLE_OAUTH = 'Google';
+
     public const ROLE_USER = 'ROLE_USER';
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
 
     public function __construct()
     {
         $this->setRoles([self::ROLE_USER]);
         $this->setEnabled(false);
-        $this->passwordEncoder = UserPasswordEncoderInterface::class;
         $this->posts = new ArrayCollection();
 
 
@@ -41,10 +43,8 @@ class User implements UserInterface
     }
 
     public function __construct1(
-        UserPasswordEncoderInterface $passwordEncoder
     )
     {
-        $this->passwordEncoder = $passwordEncoder;
         $this->roles = [self::ROLE_USER];
         $this->enabled = false;
         $this->posts = new ArrayCollection();
