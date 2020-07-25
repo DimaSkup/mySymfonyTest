@@ -59,6 +59,12 @@
             {{ 'security.login.button' | trans }}
         </button>
 
+        <a href="{{ path('connect_google_start') }}">
+            <img src="{{ asset('uploads/images/' ~ 'google_sign_in.png') }}" alt="google sign in logo" class="w-25 h-25">
+        </a>
+        <a href="#">
+            <img src="{{ asset('uploads/images/' ~ 'github_sign_in.png') }}" alt="github sign in logo" class="img-fluid rounded-circle w-25 h-25">
+        </a>
 
         <div class="text-center my-2">
             {{ 'security.login.not_registered' | trans}}

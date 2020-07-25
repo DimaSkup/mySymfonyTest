@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -25,29 +27,71 @@ class User implements UserInterface
 
     public function __construct()
     {
+        $a = func_get_args();
+        $i = func_num_args();
+        if (method_exists($this, $f='__construct'.$i))  // the case of calling the constructor with a certain number of parameters
+        {
+            call_user_func_array(array($this, $f), $a);
+        }
+        else        // the case of calling the constructor without parameters
+        {
+            $this->setRoles([self::ROLE_USER]);
+            $this->setEnabled(false);
+            $this->posts = new ArrayCollection();
+            $this->setUsername('default_username');
+            $this->setOauthType('legasy');
+            $this->lastLoginTime = new DateTime('now');
+        }
+    }
+
+    /**
+     * Another constructor for OAuth Authentication
+     *
+     * @param $clientId
+     * @param string $email
+     * @param string $username
+     * @param string $oauthType
+     * @param array $roles
+     */
+    public function __construct5(
+        $clientId,
+        string $email,
+        string $username,
+        string $oauthType,
+        array $roles
+    )
+    {
         $this->setRoles([self::ROLE_USER]);
         $this->setEnabled(false);
         $this->posts = new ArrayCollection();
 
-
-        $a = func_get_args();
-        $i = func_num_args();
-        if (method_exists($this, $f='__construct'.$i))
-        {
-            call_user_func_array(array($this, $f), $a);
-        }
-        else
-        {
-
-        }
+        $this->setClientId($clientId);
+        $this->setEmail($email);
+        $this->setUsername($username);
+        $this->setOauthType($oauthType);
+        $this->lastLoginTime = new DateTime('now');
     }
 
-    public function __construct1(
-    )
+    /**
+     * @param int $clientId
+     * @param string $email
+     * @param string $username
+     *
+     * @return User
+     */
+    public static function fromGoogleRequest(
+        string $clientId,
+        string $email,
+        string $username
+    ): User
     {
-        $this->roles = [self::ROLE_USER];
-        $this->enabled = false;
-        $this->posts = new ArrayCollection();
+        return new self(
+            $clientId,
+            $email,
+            $username,
+            self::GOOGLE_OAUTH,
+            [self::ROLE_USER]
+        );
     }
 
     /**
@@ -56,6 +100,24 @@ class User implements UserInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getClientId(): int
+    {
+        return $this->clientId;
+    }
+
+    /**
+     * @param int $clientId
+     * @return $this
+     */
+    public function setClientId($clientId): self
+    {
+        $this->clientId = $clientId;
+        return $this;
     }
 
     /**
@@ -87,6 +149,16 @@ class User implements UserInterface
     public function getUsername(): string
     {
         return (string) $this->email;
+    }
+
+    /**
+     * @param string $username
+     * @return $this
+     */
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+        return $this;
     }
 
     /**
@@ -250,6 +322,45 @@ class User implements UserInterface
             if ($post->getUser() === $this)
                 $post->setUser(null);
         }
+
+        return $this;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getOauthType(): string
+    {
+        return $this->oauthType;
+    }
+
+    /**
+     * @param string $oauthType
+     * @return $this
+     */
+    public function setOauthType(string $oauthType): self
+    {
+        $this->oauthType = $oauthType;
+        return $this;
+    }
+
+    /**
+     * @return DateTimeInterface
+     */
+    public function getLastLoginTime(): DateTimeInterface
+    {
+        return $this->lastLoginTime;
+    }
+
+    /**
+     * @param DateTimeInterface $lastLoginTime
+     * @return $this
+     */
+    public function setLastLoginTime(DateTimeInterface $lastLoginTime): self
+    {
+        $this->lastLoginTime = $lastLoginTime;
+        return $this;
     }
 
     /**
@@ -300,6 +411,13 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $clientId;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string", length=180, unique=true)
@@ -309,8 +427,16 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank()
+     */
+    private $username;
+
+    /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $password;
 
@@ -368,4 +494,19 @@ class User implements UserInterface
      * @ORM\Column(type="string", nullable=true)
      */
     private $userIp;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $oauthType;
+
+    /**
+     * @var DateTimeInterface
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $lastLoginTime;
+
 }

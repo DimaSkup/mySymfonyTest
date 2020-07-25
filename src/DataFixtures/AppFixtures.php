@@ -6,6 +6,7 @@ use App\Entity\Post;
 use App\Entity\User;
 
 use Cocur\Slugify\Slugify;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
@@ -83,7 +84,10 @@ class AppFixtures extends Fixture
                  ->setEnabled(true)
                  ->setIsVerified(true)
                  ->setUserBrowserData("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0")
-                 ->setUserIp("127.0.0.1");
+                 ->setUserIp("127.0.0.1")
+                 ->setUsername($user->getEmail())
+                 ->setOauthType('legasy')
+                 ->setLastLoginTime(new DateTime('now'));
 
             $manager->persist($user);
         }
