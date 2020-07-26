@@ -54,17 +54,26 @@
                 </label>
             </div>
         #}
-
+        {% set curLocale = app.request.locale %}
         <button class="btn btn-primary w-100" type="submit">
             {{ 'security.login.button' | trans }}
         </button>
 
-        <a href="{{ path('connect_google_start') }}">
-            <img src="{{ asset('uploads/images/' ~ 'google_sign_in.png') }}" alt="google sign in logo" class="w-25 h-25">
-        </a>
-        <a href="#">
-            <img src="{{ asset('uploads/images/' ~ 'github_sign_in.png') }}" alt="github sign in logo" class="img-fluid rounded-circle w-25 h-25">
-        </a>
+        <div class="row text-center justify-content-center my-4">
+            <div class="col-xs-12 col-sm-4 col-lg-2">
+                <a href="{{ path('connect_google_start') }}">
+                    <img src="{{ asset('uploads/images/' ~ 'google_logo_sign_in.png') }}" alt="google sign in logo"  class="img-fluid rounded-circle w-100">
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-lg-2">
+
+                <a href="{{ path('connect_github_start', {'_locale': 'en', 'curLocale': curLocale}) }}">
+                    <img src="{{ asset('uploads/images/' ~ 'github_logo_sign_in.png') }}" alt="github sign in logo"  class="img-fluid rounded-circle w-100">
+                </a>
+            </div>
+        </div>
+
+
 
         <div class="text-center my-2">
             {{ 'security.login.not_registered' | trans}}

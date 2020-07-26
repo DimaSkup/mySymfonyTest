@@ -7,19 +7,21 @@ namespace App\Controller;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class OAuthController extends AbstractController
 {
+    static public $curLocale;
+
     /**
      * @param ClientRegistry $clientRegistry
      *
      * @return RedirectResponse
-     *
-     * @Route("/connect/google", name="connect_google_start")
      */
     public function redirectToGoogleConnect(ClientRegistry $clientRegistry)
     {
@@ -31,8 +33,6 @@ class OAuthController extends AbstractController
     }
 
     /**
-     * @Route("/google/auth", name="google_auth")
-     *
      * @return JsonResponse|RedirectResponse
      */
     public function connectGoogleCheck()
@@ -43,7 +43,41 @@ class OAuthController extends AbstractController
         }
         else
         {
-            return $this->redirectToRoute('blog_posts', ['page' => 1, '_locale' => 'ua']);
+            return $this->redirectToRoute("blog_posts");
         }
+    }
+
+    /**
+     * @param ClientRegistry $clientRegistry
+     *
+     * @return RedirectResponse
+     */
+    public function redirectToGithubConnect(ClientRegistry $clientRegistry, Request $request)
+    {
+        $localeWhenSignInWithGithub = $request->query->get('curLocale');
+
+        // save the user's current locale in a cookie
+        $response = new Response('Content', Response::HTTP_OK, ['content-type' => 'text/html']);
+        $response->headers->setCookie(new Cookie('localeWhenSignInWithGithub', $localeWhenSignInWithGithub, strtotime('now + 30 days')));
+        $response->sendHeaders();
+
+        return $clientRegistry
+            ->getClient('github')
+            ->redirect([
+                'user', 'public_repo'
+            ]);
+    }
+
+    /**
+     * @return RedirectResponse|Response
+     */
+    public function authenticateGithubUser()
+    {
+        if (!$this->getUser())
+        {
+            return new Response('User not found', 404);
+        }
+
+        return $this->redirectToRoute("blog_posts");
     }
 }

@@ -38,16 +38,19 @@ class OAuthGoogleAuthenticator extends SocialAuthenticator
      * @param ClientRegistry $clientRegistry
      * @param EntityManagerInterface $em
      * @param UserRepository $userRepository
+     * @param RouterInterface $router
      */
     public function __construct(
         ClientRegistry $clientRegistry,
         EntityManagerInterface $em,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        RouterInterface $router
     )
     {
         $this->clientRegistry = $clientRegistry;
         $this->em = $em;
         $this->userRepository = $userRepository;
+        $this->router = $router;
     }
 
     //***************************************
@@ -148,7 +151,7 @@ class OAuthGoogleAuthenticator extends SocialAuthenticator
         $providerKey
     ):  ?Response
     {
-        return null;
+        return new RedirectResponse($this->router->generate('blog_posts'));
     }
 
     /**
@@ -162,7 +165,7 @@ class OAuthGoogleAuthenticator extends SocialAuthenticator
         AuthenticationException $exception
     ):  ?Response
     {
-        return null;
+        return new Response('Authentication failed', 403);
     }
 
     /**

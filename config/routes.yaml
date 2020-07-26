@@ -5,7 +5,7 @@
 blog_posts:
     path: /{_locale}/posts
     controller: App\Controller\PostsController::posts
-    requirements: {_locale: '%router.locales%', display_order: 'created_at'}
+    requirements: {_locale: '%router.locales%'}
 
 
 new_blog_post:
@@ -66,4 +66,24 @@ login:
 logout:
     path: /{_locale}/logout
     controller: App\Controller\SecurityController::logout
+    requirements: {_locale: '%router.locales%'}
+
+connect_google_start:
+    path: /{_locale}/connect/google
+    controller: App\Controller\OAuthController::redirectToGoogleConnect
+    requirements: {_locale: '%router.locales%'}
+
+google_auth:
+    path: /{_locale}/google/auth
+    controller: App\Controller\OAuthController::connectGoogleCheck
+    requirements: {_locale: '%router.locales%'}
+
+connect_github_start:
+    path: /{_locale}/connect/github
+    controller: App\Controller\OAuthController::redirectToGithubConnect
+    requirements: {_locale: '%router.locales%'}
+
+github_auth:
+    path: /{_locale}/github/auth
+    controller: App\Controller\OAuthController::authenticateGithubUser
     requirements: {_locale: '%router.locales%'}

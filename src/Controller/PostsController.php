@@ -45,7 +45,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return $this->redirectToRoute("blog_posts", ['page' => 1, 'display_order' => 'created_at']);
+        return $this->redirectToRoute("blog_posts");
     }
 
 
@@ -56,6 +56,18 @@ class PostsController extends Controller
         $sortBy = $request->query->get('display_order');
         $resultPerPage = 25;
         $numPages = 0;
+
+        if ($page === null)
+        {
+            $request->query->set('page', 1);
+            $page = 1;
+        }
+
+        if ($sortBy === null)
+        {
+            $request->query->set('display_order', 'new');
+            $sortBy = 'new';
+        }
 
 
 
@@ -79,9 +91,12 @@ class PostsController extends Controller
 
 
 
+
+
         return $this->render('posts/index.html.twig', [
             'posts' => $posts,
             'numPages' => $numPages,
+            'curPage' => $page
         ]);
     }
 

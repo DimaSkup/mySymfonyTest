@@ -95,6 +95,28 @@ class User implements UserInterface
     }
 
     /**
+     * @param int $clientId
+     * @param string $email
+     * @param string $username
+     *
+     * @return User
+     */
+    public static function fromGithubRequest(
+        int $clientId,
+        string $email,
+        string $username
+    ):  User
+    {
+        return new self(
+            $clientId,
+            $email,
+            $username,
+            self::GITHUB_OAUTH,
+            [self::ROLE_USER]
+        );
+    }
+
+    /**
      * @return int|null
      */
     public function getId(): ?int
