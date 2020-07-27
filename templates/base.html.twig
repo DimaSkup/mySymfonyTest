@@ -55,10 +55,26 @@
                     <a class="dropdown-item" href="#">{{ 'nav_bar.other_languages' | trans }}</a>
                 </div>  <!-- /.dropdown-menu -->
             </div>  <!-- /.btn-group -->
-            <div class="nav-item">
-                <a href="{{ path('login') }}">
-                    <button class="btn btn-outline-light mx-2 my-sm-2">{{ 'nav_bar.sign_in' | trans }}</button>
-                </a>
+            <div class="nav-item px-2">
+                {% if app.user %}
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-light dropdown-toggle " data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            {{ app.user.email }}
+                        </button>
+                        <!-- drop-down menu with User Page, Site settings and exit -->
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">User Page</a>
+                            <a class="dropdown-item" href="#">Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ path('logout') }}">Exit</a>
+                        </div>  <!-- /.dropdown-menu -->
+                    </div>  <!-- /.btn-group -->
+                {% else %}
+                    <a href="{{ path('login') }}">
+                        <button class="btn btn-outline-light mx-2 my-sm-2">{{ 'nav_bar.sign_in' | trans }}</button>
+                    </a>
+                {% endif %}
             </div> <!-- /.nav-item -->
             <form class="form-inline my-2 my-lg-0" action="{{ path('blog_search') }}" method="get">
                 <input class="form-control mr-sm-2" type="search" placeholder="{{ 'nav_bar.search' | trans }}" aria-label="Search" name="q">
