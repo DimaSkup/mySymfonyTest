@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Post;
+use App\Form\CommentType;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use Cocur\Slugify\Slugify;
@@ -249,7 +251,6 @@ class PostsController extends Controller
     }
 
     /**
-     *
      * @param Post $post
      * @param Request $request
      * @param Slugify $slugify
@@ -337,26 +338,59 @@ class PostsController extends Controller
      * @param Post $post
      * @return Response
      */
-    public function post(Post $post)
+    public function showPostAndCreateNewComment(Post $post, Request $request)
     {
-        $userPostEmail = $post->getEmail();
-        if ($currUser = $this->getUser())
-        {
-            $currUserEmail = $currUser->getUsername();
-        }
-        else
-            $currUserEmail = null;
-
         // check if this post was created by the current user
         // if so, we will allow him to edit this post
-        if ($userPostEmail === $currUserEmail)
-            $postIsByCurrentUser = true;
+        $currUser = $this->getUser();
+        //dd($currUser);
+        if ($currUser)      // if the user is authorized
+        {
+            $currUserEmail = $currUser->getUsername();  // authorized user's email
+            $userPostEmail = $post->getEmail();         // the email of the user who created current post
+
+            if ($userPostEmail === $currUserEmail)
+                $postIsByCurrentUser = true;
+            else
+                $postIsByCurrentUser = false;
+        }
         else
             $postIsByCurrentUser = false;
 
+
+        if ($currUser)   // if the current post is created by this user, we'll create a comment form
+        {
+
+            $comment = new Comment();
+            $em = $this->getDoctrine()->getManager();
+            $form = $this->createForm(CommentType::class, $comment);
+
+            $post->addComment($comment);
+            $currUser->addComment($comment);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $em->persist($comment);
+                $em->flush();
+
+                return $this->redirectToRoute('blog_show', ['slug' => $post->getSlug()]);
+            }
+
+            $formView = $form->createView();
+        }
+        else
+            $formView = null;
+
+
+
+
         return $this->render('posts/show.html.twig', [
             'post' => $post,
-            'postIsByCurrentUser' => $postIsByCurrentUser
+            'postIsByCurrentUser' => $postIsByCurrentUser,
+            'comment' => $post->getComments(),
+            'form' => $formView,
         ]);
     }
 }

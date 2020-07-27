@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ post.text  | slice(0, 10)}}{% endblock %}
+{% block title %}{{ post.text  | slice(0, 20)}}{% endblock %}
 
 {% block body %}
-    <div class="container post_show my-3 mx-auto ">
+    <div class="container post_show my-3 mx-auto px-5">
         <div class="py-4">
             {{ post.text }}
         </div>
@@ -18,33 +18,74 @@
             <span class="mr-2">{{ post.email }}</span>
         </div>
 
+        <!--         -->
+        <!-- BUTTONS -->
+        <!--         -->
+        <div class="mb-3">
+            {% set referPage = app.request.server.get('HTTP_REFERER') %}
+            {% if currentPage != null %}  <!-- variable CurrentPage is the number of the current page with a list of posts -->
+                <a href="{{ path('blog_posts', {'page': currentPage}) }}">
+                    <button class="btn btn-dark back_button mb-2">
+                        {{ 'posts.show_single_post.back' | trans }}
+                    </button>
+                </a>
+            {% else %}
+                <a href="{{ referPage }}">
+                    <button class="btn btn-dark back_button mb-2">
+                        {{ 'posts.show_single_post.back' | trans }}
+                    </button>
+                </a>
+            {% endif %}
+        </div>
         {% if app.user %}
             {% if postIsByCurrentUser %}
                 <div class="my-2">
                     <a href="{{ path('blog_post_edit', {'slug': post.slug, 'page': currentPage}) }}">
-                        <button class="btn btn-outline-success mr-2">
+                        <button class="btn btn-outline-success mr-2  pull-right">
                             {{ 'posts.show_single_post.edit' | trans }}
                         </button>
                     </a>
                     <a href="{{ path('blog_post_delete', {'slug': post.slug, 'page': currentPage}) }}">
-                        <button class="btn btn-outline-danger">
+                        <button class="btn btn-outline-danger  pull-right">
                             {{ 'posts.show_single_post.delete' | trans }}
                         </button>
                     </a>
                 </div>
             {% endif %}
         {% endif %}
-        <div class="my-2">
-            {% set referPage = app.request.server.get('HTTP_REFERER') %}
-            {% if currentPage != null %}
-                <a href="{{ path('blog_posts', {'page': currentPage}) }}">
-            {% else %}
-                <a href="{{ referPage }}">
-            {% endif %}
-                <button class="btn btn-dark back_button mb-2">
-                    {{ 'posts.show_single_post.back' | trans }}
-                </button>
-            </a>
+        <!--             -->
+        <!-- END;BUTTONS -->
+        <!--             -->
+
+        <div class="pt-5">
+            <h3>Comments</h3>
+            <div class="dropdown-divider my-2" style="border-color: darkgrey;"></div>
+            {% for comment in post.comments %}
+                {% if comment.comment != null %}
+                    <p>
+                        <img src="{{ asset('uploads/images/user_icon.png') }}" width="20" height="20" class="rounded-circle">
+                        {{ comment.user.username }}
+                        {{ comment.createdAt.format('d-m-y') }} at
+                        {{ comment.createdAt.format('H:i') }}
+                        <p class="pb-4">
+                            {{ comment.comment }}
+                        </p>
+                    </p>
+                {% endif %}
+            {% endfor %}
+
         </div>
+
+        {% if form != null %}
+            <div class="pb-3">
+                {{ form_start(form) }}
+                {{ form_widget(form.comment, {'attr': {'placeholder': 'write the comment'}}) }}
+                <br/>
+                <button type="submit" class="btn btn-primary">Send</button>
+                {{ form_end(form) }}
+            </div>
+        {% endif %}
+
+
     </div>
 {% endblock %}

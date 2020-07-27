@@ -27,6 +27,12 @@ class User implements UserInterface
 
     public function __construct()
     {
+        $this->setRoles([self::ROLE_USER]);
+        $this->setEnabled(false);
+        $this->posts = new ArrayCollection();
+
+        // if any parameters are transferred to the constructor, we call the function
+        // which will process them, differently we continue work of the constructor
         $a = func_get_args();
         $i = func_num_args();
         if (method_exists($this, $f='__construct'.$i))  // the case of calling the constructor with a certain number of parameters
@@ -35,13 +41,12 @@ class User implements UserInterface
         }
         else        // the case of calling the constructor without parameters
         {
-            $this->setRoles([self::ROLE_USER]);
-            $this->setEnabled(false);
-            $this->posts = new ArrayCollection();
+
             $this->setUsername('default_username');
             $this->setOauthType('legasy');
             $this->lastLoginTime = new DateTime('now');
         }
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -61,10 +66,6 @@ class User implements UserInterface
         array $roles
     )
     {
-        $this->setRoles([self::ROLE_USER]);
-        $this->setEnabled(false);
-        $this->posts = new ArrayCollection();
-
         $this->setClientId($clientId);
         $this->setEmail($email);
         $this->setUsername($username);
@@ -423,6 +424,46 @@ class User implements UserInterface
         return $this->userIp;
     }
 
+
+    //*****************************************
+    //
+    //    Functions for work with comments
+    //
+    //*****************************************
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
     /**
      * @var int
      *
@@ -530,5 +571,14 @@ class User implements UserInterface
      * @ORM\Column(type="datetime")
      */
     private $lastLoginTime;
+
+    /**
+     * @var Comment[]
+     *
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user")
+     */
+    private $comments;
+
+
 
 }

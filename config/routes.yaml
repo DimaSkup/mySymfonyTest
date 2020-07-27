@@ -30,7 +30,7 @@ blog_post_delete:
 
 blog_show:
     path: /{_locale}/posts/{slug}
-    controller: App\Controller\PostsController::post
+    controller: App\Controller\PostsController::showPostAndCreateNewComment
     requirements: {_locale: '%router.locales%'}
 
 register:

@@ -26,7 +26,7 @@
 
 
     <div class="container test_login mx-auto w-25">
-        <h1 class="h3  mb-3 font-weight-normal text-center">{{ 'security.login.invitation' | trans }}</h1>
+        <h1 class="h3 pt-3 my-3 font-weight-normal text-center">{{ 'security.login.invitation' | trans }}</h1>
         <div class="form-group">
             <label for="inputEmail">{{ 'security.login.email' | trans }}</label>
             <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
@@ -54,7 +54,6 @@
                 </label>
             </div>
         #}
-        {% set curLocale = app.request.locale %}
         <button class="btn btn-primary w-100" type="submit">
             {{ 'security.login.button' | trans }}
         </button>
@@ -67,7 +66,7 @@
             </div>
             <div class="col-xs-12 col-sm-4 col-lg-2">
 
-                <a href="{{ path('connect_github_start', {'_locale': 'en', 'curLocale': curLocale}) }}">
+                <a href="{{ path('connect_github_start', {'_locale': 'en', 'curLocale': app.request.locale}) }}">
                     <img src="{{ asset('uploads/images/' ~ 'github_logo_sign_in.png') }}" alt="github sign in logo"  class="img-fluid rounded-circle w-100">
                 </a>
             </div>
@@ -75,7 +74,7 @@
 
 
 
-        <div class="text-center my-2">
+        <div class="text-center pb-2">
             {{ 'security.login.not_registered' | trans}}
             <a class="link" href="{{ path('register') }}">{{ 'security.login.create_account' | trans}} </a>
         </div>
