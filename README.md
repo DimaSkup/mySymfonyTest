@@ -1,5 +1,4 @@
 # My Symfony Test
-***
 This is my test task
 
 ### Installation
