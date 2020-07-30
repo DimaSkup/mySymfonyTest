@@ -33,4 +33,4 @@ Now you need _to_ _uncomment_ the lines `./node_modules/bootstrap/dist/js/bootst
     
 #### Running the Symfony web server
     $ symfony server:start
-Now you can go to the example: https://127.0.0.1:8000
+Now you can go to the example: https://127.0.0.1:8000 and log in as a user `1` with a password `12345`
