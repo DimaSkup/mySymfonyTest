@@ -21,6 +21,7 @@ Execute the following commands:
     $ npm install popper.js
     $ npm install bootstrap
 Now you need _to_ _uncomment_ the lines `./node_modules/bootstrap/dist/js/bootstrap.min.js` and `./node_modules/bootstrap/dist/css/bootstrap.min.css` in the file `webpack.config.js`
+
     $ ./node_modules/.bin/encore dev
     
 #### Prepare data for the site
