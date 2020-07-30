@@ -27,8 +27,7 @@ Now you need _to_ _uncomment_ the lines `./node_modules/bootstrap/dist/js/bootst
 #### Prepare data for the site
 * In MySQL create a database called "DB"
 * Fill the database with fixtures:
-    
-    $ php bin/console doctrine:fixtures:load
+    `$ php bin/console doctrine:fixtures:load`
     
 #### Running the Symfony web server
     $ symfony server:start
