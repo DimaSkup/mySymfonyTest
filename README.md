@@ -25,7 +25,7 @@ Now you need _to_ _uncomment_ the lines `./node_modules/bootstrap/dist/js/bootst
     $ ./node_modules/.bin/encore dev
     
 #### Prepare data for the site
-* In MySQL create a database called "DB"
+* In MySQL create a database called `DB`
 * Fill the database with fixtures:
     `$ php bin/console doctrine:fixtures:load`
     
