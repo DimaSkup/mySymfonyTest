@@ -26,6 +26,8 @@ Now you need _to_ _uncomment_ the lines `./node_modules/bootstrap/dist/js/bootst
     
 #### Prepare data for the site
 * In MySQL create a database called `DB`
+* Create a migration: `php bin/console make:migration`
+* Let's update our table `DB`: `php bin/console doctrine:schema:up -f`
 * Fill the database with fixtures:
     `$ php bin/console doctrine:fixtures:load`
     
