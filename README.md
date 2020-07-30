@@ -12,8 +12,10 @@ This is my test task
 #### Installation of a bootstrap
     $ npm install @symfony/webpack-encore --save-dev
     $ composer require encore
-Now you need _to_ _comment_ _out_ the lines `./node_modules/bootstrap/dist/js/bootstrap.min.js` and`./node_modules/bootstrap/dist/css/bootstrap.min.css` in the file `webpack.config.js`
+Now you need _to_ _comment_ _out_ the lines `./node_modules/bootstrap/dist/js/bootstrap.min.js` and `./node_modules/bootstrap/dist/css/bootstrap.min.css` in the file `webpack.config.js`
+
 Execute the following commands:
+
     $ ./node_modules/.bin/encore dev
     $ npm install jquery
     $ npm install popper.js
