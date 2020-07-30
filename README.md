@@ -2,7 +2,6 @@
 This is my test task
 
 ## Installation
-***
 #### Download the project
     $ git clone https://github.com/DimaSkup/mySymfonyTest.git
     $ cd mySymfonyTest
