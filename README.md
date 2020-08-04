@@ -7,9 +7,8 @@ This is my test task
     $ cd mySymfonyTest
     
 #### Installing the dependencies using composer 
-Installing composer packages: `$ composer install`
-
-Clearing cache: `$ php bin/console cache:clear --env=prod --no-debug`
+* Installing composer packages: `$ composer install`
+* Clearing cache: `$ php bin/console cache:clear --env=prod --no-debug`
     
 #### Installation of a bootstrap
     $ npm install
