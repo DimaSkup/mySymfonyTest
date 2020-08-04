@@ -10,20 +10,8 @@ This is my test task
     $ composer install
     
 #### Installation of a bootstrap
-    $ npm install @symfony/webpack-encore --save-dev
-    $ composer require encore
-Now you need _to_ _comment_ _out_ the lines `./node_modules/bootstrap/dist/js/bootstrap.min.js` and `./node_modules/bootstrap/dist/css/bootstrap.min.css` in the file `webpack.config.js`
-
-Execute the following commands:
-
-    $ sudo ln -s /usr/bin/nodejs /usr/bin/node
-    $ ./node_modules/.bin/encore dev
-    $ npm install jquery
-    $ npm install popper.js
-    $ npm install bootstrap
-Now you need _to_ _uncomment_ the lines `./node_modules/bootstrap/dist/js/bootstrap.min.js` and `./node_modules/bootstrap/dist/css/bootstrap.min.css` in the file `webpack.config.js`
-
-    $ ./node_modules/.bin/encore dev
+    $ npm install
+    $ ./node_modules/.bin/encore dev --watch
     
 #### Prepare data for the site
 * In MySQL create a database called `DB`
@@ -34,4 +22,7 @@ Now you need _to_ _uncomment_ the lines `./node_modules/bootstrap/dist/js/bootst
     
 #### Running the Symfony web server
     $ symfony server:start
-Now you can go to the example: https://127.0.0.1:8000 and log in as a user `1` with a password `12345`
+Now you can go to the example: https://127.0.0.1:8000 and log in in three different ways:
+1. As a user `1@gmail.com` with a password `12345`
+2. Log in with Google
+3. Log in with Github
