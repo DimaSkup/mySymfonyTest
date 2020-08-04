@@ -12,7 +12,7 @@ This is my test task
     
 #### Installation of a bootstrap
     $ npm install
-    $ ./node_modules/.bin/encore dev --watch
+    $ npm run dev
     
 #### Prepare data for the site
 * In MySQL create a database called `DB`
