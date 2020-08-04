@@ -41,7 +41,7 @@ class PostType extends AbstractType
                         'required' => false,
             ]);
 
-        
+
         $builder->get('image')
             ->addModelTransformer(new CallbackTransformer(
                 function ($imageAsFile)
