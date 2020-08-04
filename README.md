@@ -27,3 +27,4 @@ Now you can go to the example: https://127.0.0.1:8000 and log in in three differ
 1. As a user `1@gmail.com` with a password `12345`
 2. Log in with Google
 3. Log in with Github
+
