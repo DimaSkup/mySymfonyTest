@@ -15,7 +15,7 @@ This is my test task
 Now you need _to_ _comment_ _out_ the lines `./node_modules/bootstrap/dist/js/bootstrap.min.js` and `./node_modules/bootstrap/dist/css/bootstrap.min.css` in the file `webpack.config.js`
 
 Execute the following commands:
-
+    $ sudo ln -s /usr/bin/nodejs /usr/bin/node
     $ ./node_modules/.bin/encore dev
     $ npm install jquery
     $ npm install popper.js
