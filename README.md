@@ -7,11 +7,12 @@ This is my test task
     $ cd mySymfonyTest
     
 #### Installing the dependencies using composer 
-    $ composer install
+* Installing composer packages: `$ composer install`
+* Clearing cache: `$ php bin/console cache:clear --env=prod --no-debug`
     
 #### Installation of a bootstrap
     $ npm install
-    $ ./node_modules/.bin/encore dev --watch
+    $ npm run dev
     
 #### Prepare data for the site
 * In MySQL create a database called `DB`
