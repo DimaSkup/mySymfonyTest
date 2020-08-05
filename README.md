@@ -17,14 +17,14 @@ This is my test task
 #### Setting .env  
 1. Rename .env.example: `mv .env.example .env`
 2. Configure .env
-    # Changing the development environment to prod
+    ##### Changing the development environment to prod
     APP_ENV=dev
-    # Build connecting
+    ##### Build connecting
     DATABASE_URL=mysql://db_user:db_password@db_ip:3306/db_name
 
-    # Configure Swift Mailer
-    # For Gmail as a transport, use: "gmail://username:password@localhost"
-    # For a generic SMTP server, use: "smtp://localhost:25?encryption=&auth_mode="
+    ##### Configure Swift Mailer
+    ##### For Gmail as a transport, use: "gmail://username:password@localhost"
+    ##### For a generic SMTP server, use: "smtp://localhost:25?encryption=&auth_mode="
     MAILER_URL=gmail://gmail_username:gmail_password@localhost
     
 #### Prepare data for the site
