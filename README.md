@@ -17,6 +17,7 @@ This is my test task
 #### Setting .env  
 1. Rename .env.example: `mv .env.example .env`
 2. Configure .env
+
     ##### Changing the development environment to prod
     APP_ENV=dev
     ##### Build connecting
