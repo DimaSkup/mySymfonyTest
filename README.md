@@ -15,9 +15,9 @@ This is my test task
     $ npm run dev
     
 #### Setting .env  
-Rename .env.example: `mv .env.example .env`
+I. Rename .env.example: `mv .env.example .env`
 
-Configure .env:
+II. Configure .env:
 
     # Changing the development environment to prod
     APP_ENV=dev
