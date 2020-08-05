@@ -19,7 +19,7 @@ I. Rename .env.example: `mv .env.example .env`
 
 II. Configure `.env`:
 
-    `# Changing the development environment to prod`
+    # Changing the development environment to prod
     APP_ENV=dev
     # Build connecting
     DATABASE_URL=mysql://db_user:db_password@db_ip:3306/db_name
