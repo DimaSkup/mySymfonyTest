@@ -16,6 +16,7 @@ This is my test task
     
 #### Setting .env  
 Rename .env.example: `mv .env.example .env`
+
 Configure .env:
 
     # Changing the development environment to prod
