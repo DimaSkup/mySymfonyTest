@@ -30,9 +30,7 @@ II. Configure `.env`:
     MAILER_URL=gmail://gmail_username:gmail_password@localhost
     
 #### Prepare data for the site
-* In MySQL create a database called `DB`
-* Create a migration: `php bin/console make:migration`
-* Let's update our table `DB`: `php bin/console doctrine:schema:up -f`
+* Start the migration: `php bin/console doctrine:migration:migrate`
 * Fill the database with fixtures:
     `$ php bin/console doctrine:fixtures:load`
     
