@@ -25,12 +25,6 @@ use Twig\Environment;
 
 class PostsController extends Controller
 {
-    /** @var PostRepository $postRepository */
-    private $postRepository;
-
-    /** @var Security */
-    private $security;
-
     /**
      * PostsController constructor.
      * @param PostRepository $postRepository
@@ -89,11 +83,6 @@ class PostsController extends Controller
         {
             $posts = $this->sortPostSetBy($posts, $sortBy);
         }
-
-
-
-
-
 
         return $this->render('posts/index.html.twig', [
             'posts' => $posts,
@@ -393,4 +382,12 @@ class PostsController extends Controller
             'form' => $formView,
         ]);
     }
+
+
+    /** @var PostRepository $postRepository */
+    private $postRepository;
+
+    /** @var Security */
+    private $security;
+
 }

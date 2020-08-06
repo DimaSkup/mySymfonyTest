@@ -27,11 +27,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public const LOGIN_ROUTE = 'login';
 
-    private $entityManager;
-    private $urlGenerator;
-    private $csrfTokenManager;
-    private $passwordEncoder;
-
     public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->entityManager = $entityManager;
@@ -114,4 +109,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
+
+    private $entityManager;
+    private $urlGenerator;
+    private $csrfTokenManager;
+    private $passwordEncoder;
+
 }

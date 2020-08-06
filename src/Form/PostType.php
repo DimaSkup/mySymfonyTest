@@ -18,9 +18,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PostType extends AbstractType
 {
-    private $options;
-    private $entityManager;
-
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
@@ -77,4 +74,8 @@ class PostType extends AbstractType
             'images_directory',     // this option contains the path to the image directory
         ]);
     }
+
+    private $options;
+    private $entityManager;
+
 }

@@ -17,6 +17,9 @@ use Cocur\Slugify\Slugify;
  */
 class Post
 {
+    /**
+     * Post constructor.
+     */
     public function __construct()
     {
         $this->created_at = new \DateTime();
@@ -136,8 +139,7 @@ class Post
      */
     public function getCreatedAtString(): string
     {
-        $date = date("Y-m-d H:i:s", $this->created_at->getTimestamp());
-        return $date;
+        return date("Y-m-d H:i:s", $this->created_at->getTimestamp());
     }
 
     /**
@@ -313,8 +315,5 @@ class Post
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="post")
      */
     private $comments;  // a boolean flag which indicates whether the post has been moderated
-
-
-
 }
 

@@ -34,31 +34,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 final class OAuthGithubAuthenticator extends SocialAuthenticator
 {
     /**
-     * @var ClientRegistry
-     */
-    private $clientRegistry;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
-
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-
-    /**
      * @param ClientRegistry $clientRegistry
      * @param EntityManagerInterface $em
      * @param UserRepository $userRepository
@@ -193,6 +168,36 @@ final class OAuthGithubAuthenticator extends SocialAuthenticator
         return $this->clientRegistry->getClient('github');
     }
 
+
+    //***************************************
+    //
+    //          Data of the class
+    //
+    //***************************************
+    /**
+     * @var ClientRegistry
+     */
+    private $clientRegistry;
+
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
+     * @var RouterInterface
+     */
+    private $router;
+
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
 }
 
 

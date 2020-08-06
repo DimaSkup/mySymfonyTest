@@ -74,7 +74,7 @@ class User implements UserInterface
     }
 
     /**
-     * @param int $clientId
+     * @param string $clientId
      * @param string $email
      * @param string $username
      *
@@ -464,6 +464,11 @@ class User implements UserInterface
 
 
 
+    //**************************************
+    //
+    //       The data of the class
+    //
+    //**************************************
     /**
      * @var int
      *
@@ -578,7 +583,4 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user")
      */
     private $comments;
-
-
-
 }

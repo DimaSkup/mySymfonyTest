@@ -18,16 +18,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
-    private $faker;
-    private $slug;
-    private $passwordEncoder;
-    private $userRepository;
-    private $fakePostsCount;
-    private $fakeUsersCount;
-    private $request;
-
-
-
     public function __construct(Slugify $slugify, UserRepository $userRepository,
                                 UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -93,4 +83,12 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
     }
+
+
+    private $faker;
+    private $slug;
+    private $passwordEncoder;
+    private $userRepository;
+    private $fakePostsCount;
+    private $fakeUsersCount;
 }

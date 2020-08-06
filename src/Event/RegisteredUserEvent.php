@@ -12,11 +12,6 @@ class RegisteredUserEvent extends Event
     public const NAME = 'user.register';
 
     /**
-     * @var User
-     */
-    private $registeredUser;
-
-    /**
      * @param User $registeredUser
      */
     public function __construct(User $registeredUser)
@@ -31,4 +26,10 @@ class RegisteredUserEvent extends Event
     {
         return $this->registeredUser;
     }
+
+
+    /**
+     * @var User
+     */
+    private $registeredUser;
 }

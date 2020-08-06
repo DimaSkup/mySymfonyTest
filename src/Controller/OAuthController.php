@@ -16,8 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class OAuthController extends AbstractController
 {
-    static public $curLocale;
-
     /**
      * @param ClientRegistry $clientRegistry
      *
@@ -80,4 +78,6 @@ class OAuthController extends AbstractController
 
         return $this->redirectToRoute("blog_posts");
     }
+
+    static public $curLocale;
 }

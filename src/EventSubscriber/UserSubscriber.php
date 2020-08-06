@@ -12,11 +12,6 @@ use Twig\Error\SyntaxError as Twig_Error_Syntax;
 class UserSubscriber implements EventSubscriberInterface
 {
     /**
-     * @var Mailer
-     */
-    private $mailer;
-
-    /**
      * @param Mailer $mailer
      */
     public function __construct(Mailer $mailer)
@@ -44,4 +39,11 @@ class UserSubscriber implements EventSubscriberInterface
     {
         $this->mailer->sendConfirmationMessage($registeredUserEvent->getRegisteredUser());
     }
+
+
+    /**
+     * @var Mailer
+     */
+    private $mailer;
+
 }

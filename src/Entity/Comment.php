@@ -13,55 +13,13 @@ use Doctrine\ORM\Mapping as ORM;
 class Comment
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
+     * Comment constructor.
      */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="text", nullable=false)
-     */
-    private $comment;
-
-    /**
-     * @var Post
-     *
-     * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="comments")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    private $post;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
-     * @ORM\JoinColumn(referencedColumnName="id")
-     */
-    private $user;
-
-
-    /**
-     * @var DateTime
-     *
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    /**
-     * @var DateTime
-     *
-     * @ORM\Column(type="datetime")
-     */
-    private $updatedAt;
-
     public function __construct()
     {
         $this->createdAt = new DateTime('now');
         $this->updatedAt = new DateTime('now');
     }
-
-
 
     /**
      * @param string $content
@@ -145,5 +103,50 @@ class Comment
 
         return $this;
     }
+
+
+
+
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="text", nullable=false)
+     */
+    private $comment;
+
+    /**
+     * @var Post
+     *
+     * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="comments")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    private $post;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    private $user;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
 
 }

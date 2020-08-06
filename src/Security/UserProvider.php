@@ -15,11 +15,6 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 class UserProvider implements UserProviderInterface
 {
     /**
-     * @var UserRepository
-     */
-    private $userRepository;
-
-    /**
      * @param UserRepository $userRepository
      */
     public function __construct(UserRepository $userRepository)
@@ -67,4 +62,10 @@ class UserProvider implements UserProviderInterface
     {
         return $class === 'App\Entity\User';
     }
+
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
 }

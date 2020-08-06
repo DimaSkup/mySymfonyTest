@@ -29,19 +29,6 @@ use Swift_Message;
  */
 class ResetPasswordController extends AbstractController
 {
-
-    private $resetPasswordHelper;
-
-    /** @var Environment */
-    private $twig;
-
-    /** @var Swift_Mailer */
-    private $mailer;
-
-    private $codeGenerator;
-    private $tokenLifetime;
-
-
     public function __construct(
         Swift_Mailer $mailer,
         Environment $twig,
@@ -208,4 +195,15 @@ class ResetPasswordController extends AbstractController
             'requestForm' => $form->createView(),
         ]);
     }
+
+
+
+    /** @var Environment */
+    private $twig;
+
+    /** @var Swift_Mailer */
+    private $mailer;
+
+    private $codeGenerator;
+    private $tokenLifetime;
 }

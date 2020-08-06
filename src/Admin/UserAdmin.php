@@ -25,7 +25,6 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-
 final class UserAdmin extends AbstractAdmin
 {
     public function __construct($code, $class, $baseControllerName, UserPasswordEncoderInterface $passwordEncoder)
@@ -59,16 +58,6 @@ final class UserAdmin extends AbstractAdmin
                         return $password;
                     else
                         return $this->subject->getPassword();
-
-
-                    /*
-                    dd($this->subject);
-                    $request = $this->getRequest();
-                    $uniqid = $request->query->get('uniqid');
-                    $container = $this->getConfigurationPool()->getContainer();
-                    //$pathToImageDir = $container->getParameter('images_directory');
-
-                   */
                 }
             ));
     }
@@ -137,12 +126,12 @@ final class UserAdmin extends AbstractAdmin
             : 'User';
     }
 
+
+
     private $userManager;
 
     /**
      * @var UserPasswordEncoderInterface $passwordEncoder
      */
     private $passwordEncoder;
-
-
 }
