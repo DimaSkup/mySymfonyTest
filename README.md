@@ -31,7 +31,7 @@ II. Configure `.env`:
     
 #### Prepare data for the site
 * Create a migration: `php bin/console make:migration`
-* Start migration: `php bin/console doctrine:migration:migrate`
+* Start the migration: `php bin/console doctrine:migration:migrate`
 * Fill the database with fixtures:
     `$ php bin/console doctrine:fixtures:load`
     
