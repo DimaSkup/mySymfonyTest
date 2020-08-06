@@ -11,7 +11,9 @@
 <div class="container">
     <p>{{ 'security.conf_reg.welcome' | trans }}{{ user.username }}!</p>
         {{ 'security.conf_reg.conf_email_text' | trans}} <br><br>
-        <a href="{{ app.request.schemeAndHttpHost }}{{ path('email_confirmation', {'code': user.confirmationCode }) }}">{{ 'security.conf_reg.conf_my_email' | trans}}</a>
+        <a href="{{ app.request.schemeAndHttpHost }}{{ path('email_confirmation', {'code': user.confirmationCode }) }}">
+            {{ 'security.conf_reg.conf_my_email' | trans}}
+        </a>
     </p>
 </div>
 </body>

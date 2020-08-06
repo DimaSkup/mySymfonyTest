@@ -41,8 +41,6 @@ class User implements UserInterface
         }
         else        // the case of calling the constructor without parameters
         {
-
-            $this->setUsername('default_username');
             $this->setOauthType('legasy');
             $this->lastLoginTime = new DateTime('now');
         }
@@ -171,7 +169,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string) $this->username;
     }
 
     /**

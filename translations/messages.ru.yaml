@@ -2,11 +2,16 @@ nav_bar:
   home : 'Главная страница'
   pricing: 'Расценки'
   about_us : 'О нас'
+  admin_panel: 'Панель администратора'
   language: 'Язык'
   other_languages: 'Другие языки'
   sign_in: 'Авторизация'
   search: 'Поиск'
   find_post_button: 'Найти пост'
+  user_button:
+    user_page: 'Страница пользователя'
+    settings: 'Настройки'
+    exit: 'Выход'
 
 # directory "templates/posts"
 posts:
@@ -118,6 +123,7 @@ security:
     title: 'Регистрация'
     input_help: 'Повторно введите пароль'
     email: 'Эл. адрес'
+    username: 'Имя пользователя'
     first_password: 'Пароль'
     second_password: 'Подтверждение пароля'
     button: 'Зарегистрироваться'

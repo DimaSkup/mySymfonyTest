@@ -2,11 +2,16 @@ nav_bar:
   home: 'Main menu'
   pricing: 'Pricing'
   about_us: 'About Us'
+  admin_panel: 'Admin panel'
   language: 'Language'
   other_languages: 'Other languages'
   sign_in: 'Sign in'
   search: 'Search'
   find_post_button: 'Find post'
+  user_button:
+    user_page: 'User page'
+    settings: 'Settings'
+    exit: 'Exit'
 
 # directory "templates/posts"
 posts:
@@ -117,6 +122,7 @@ security:
     title: 'Registration'
     input_help: 'Re-enter password'
     email: 'Email'
+    username: 'Username'
     first_password: 'First password'
     second_password: 'Second password'
     button: 'Sign up'

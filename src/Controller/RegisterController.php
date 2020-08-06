@@ -9,12 +9,10 @@ use App\Event\RegisteredUserEvent;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Service\CodeGenerator;
-use App\Service\Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegisterController extends AbstractController
@@ -54,6 +52,11 @@ class RegisterController extends AbstractController
                  ->setConfirmationCode($codeGenerator->getConfirmationCode())
                  ->setUserBrowserData($request->headers->get('user-agent'))
                  ->setUserIp($request->getClientIp());
+
+            if (strtolower($user->getUsername()) == 'admin')
+            {
+                return new Response('<html><body>There is admin already exists!</body></html>');
+            }
 
             $em = $this->getDoctrine()->getManager();
 

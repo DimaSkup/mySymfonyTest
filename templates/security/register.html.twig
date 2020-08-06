@@ -11,7 +11,12 @@
         {% if form is defined %}
         {{ form_start(form, {'attr': {'class': 'form-group'}}) }}
             {{ 'security.registration.email' | trans }}
+            <p>
                 {{ form_widget(form.email, {'attr': {'class': 'text-left  w-100'}}) }}
+            </p>
+            {{ 'security.registration.username' | trans }}
+            <p>
+                {{ form_widget(form.username, {'attr': {'class': 'text-left w-100'}}) }}
             </p>
             {{ 'security.registration.first_password' | trans }}
             <p>

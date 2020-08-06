@@ -58,8 +58,7 @@ class AppFixtures extends Fixture
 
     public function loadUsers(ObjectManager $manager)
     {
-
-
+        ## creating regular users
         for ($i = 1; $i <= $this->fakeUsersCount; $i++)
         {
             $user = new User();
@@ -75,12 +74,30 @@ class AppFixtures extends Fixture
                  ->setIsVerified(true)
                  ->setUserBrowserData("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0")
                  ->setUserIp("127.0.0.1")
-                 ->setUsername($user->getEmail())
+                 ->setUsername('user'.$i)
                  ->setOauthType('legasy')
                  ->setLastLoginTime(new DateTime('now'));
 
             $manager->persist($user);
         }
+
+        ## creating an administrator
+        $admin = new User();
+        // Encode the plain password
+        $encodedPassword = $this->passwordEncoder->encodePassword($admin,'admin');
+        $admin->setEmail('Admin@gmail.com')
+              ->setPassword($encodedPassword)       // set encoded password as a user password
+              ->setRoles([User::ROLE_ADMIN])
+              ->setEnabled(true)
+              ->setIsVerified(true)
+              ->setUserBrowserData("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0")
+              ->setUserIp("127.0.0.1")
+              ->setUsername('Admin')
+              ->setOauthType('legasy')
+              ->setLastLoginTime(new DateTime('now'));
+
+        $manager->persist($admin);
+
         $manager->flush();
     }
 

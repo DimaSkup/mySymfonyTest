@@ -2,11 +2,16 @@ nav_bar:
   home : 'Головна сторінка'
   pricing: 'Розцінки'
   about_us : 'Про нас'
+  admin_panel: 'Панель адміністратора'
   language: 'Мова'
   other_languages: 'Інші мови'
   sign_in: 'Авторизація'
   search: 'Пошук'
   find_post_button: 'Знайти пост'
+  user_button:
+    user_page: 'Сторінка користувача'
+    settings: 'Параметри'
+    exit: 'Вихід'
 
 # directory "templates/posts"
 posts:
@@ -117,6 +122,7 @@ security:
     title: 'Реєстрація'
     input_help: 'Повторно введіть пароль'
     email: 'Електронна адреса'
+    username: "Ім'я користувача"
     first_password: 'Пароль'
     second_password: 'Підтвердження паролю'
     button: 'Зареєструватися'

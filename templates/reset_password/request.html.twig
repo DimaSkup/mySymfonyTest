@@ -3,7 +3,7 @@
 {% block title %}{{ 'reset_password.request.title' | trans }}{% endblock %}
 
 {% block body %}
-    <div class="container reset_password_form mx-auto">
+    <div class="container reset_password_form">
         {% for flashError in app.flashes('reset_password_error') %}
             <div class="alert alert-danger" role="alert">{{ flashError }}</div>
         {% endfor %}
@@ -11,7 +11,7 @@
             <h1>{{ 'reset_password.request.title' | trans }}</h1>
         </div>
         {{ form_start(requestForm) }}
-        {{ form_widget(requestForm.email) }}
+            {{ form_widget(requestForm.email) }}
 
         <div class="text-center">
             <small>

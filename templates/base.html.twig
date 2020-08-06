@@ -6,7 +6,6 @@
         {% block stylesheets %}{% endblock %}
         <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
         <script src="{{ asset('build/js/app.js') }}"></script>
-        <script src="{{ asset('build/js/carousel.js') }}"></script>
         <script src="https://www.google.com/recaptcha/api.js"></script>
     </head>
     <body>
@@ -17,6 +16,8 @@
     {% set slug = app.request.attributes.get('slug') %}
     {% set referPage = app.request.server.get('HTTP_REFERER') %}
     {% set confirmCode = app.request.attributes.get('code') %}
+    {% set route_scheme = app.request.server.get('SYMFONY_DEFAULT_ROUTE_SCHEME') %}
+    {% set http_host = app.request.server.get('HTTP_HOST') %}
 
     <!--------   NAVIGATION BAR   --------->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
@@ -40,6 +41,16 @@
                     <a href="#" class="nav-link disabled">{{ 'nav_bar.about_us' | trans }}</a>
                 </li>
             </ul>
+
+            {% if app.user %}
+                {% if app.user.username == "Admin" %}
+                    <div class=" }}">
+                        <a href="{{route_scheme}}://{{ http_host }}/admin">
+                            <button type="button" class="btn btn-outline-warning mr-3">{{ 'nav_bar.admin_panel' | trans }}</button>
+                        </a>
+                    </div>
+                {% endif %}
+            {% endif %}
             <div class="btn-group">
                 <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
@@ -64,10 +75,10 @@
                         </button>
                         <!-- drop-down menu with User Page, Site settings and exit -->
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">User Page</a>
-                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item" href="#">{{ 'nav_bar.user_button.user_page' | trans }}</a>
+                            <a class="dropdown-item" href="#">{{ 'nav_bar.user_button.settings' | trans }}</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ path('logout') }}">Exit</a>
+                            <a class="dropdown-item" href="{{ path('logout') }}">{{ 'nav_bar.user_button.exit' | trans }}</a>
                         </div>  <!-- /.dropdown-menu -->
                     </div>  <!-- /.btn-group -->
                 {% else %}
