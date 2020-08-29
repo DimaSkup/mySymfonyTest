@@ -12,6 +12,7 @@ This is my test task
     
 #### Installation of a bootstrap
 These commands require a version of node.js of at least 10.13.0
+
     $ npm install
     $ npm run dev
     
