@@ -1,0 +1,7 @@
+[01-Sep-2020 10:51:25 Europe/Helsinki] PHP Warning:  Module 'intl' already loaded in Unknown on line 0
+[01-Sep-2020 10:53:36 Europe/Helsinki] PHP Warning:  Module 'intl' already loaded in Unknown on line 0
+[01-Sep-2020 11:00:03 Europe/Helsinki] PHP Warning:  Module 'intl' already loaded in Unknown on line 0
+[01-Sep-2020 11:06:42 Europe/Helsinki] PHP Warning:  Module 'intl' already loaded in Unknown on line 0
+[01-Sep-2020 11:16:01 Europe/Helsinki] PHP Warning:  Module 'intl' already loaded in Unknown on line 0
+[03-Sep-2020 07:49:37 Europe/Helsinki] PHP Warning:  Module 'intl' already loaded in Unknown on line 0
+[03-Sep-2020 08:36:21 Europe/Helsinki] 2020-09-03T08:36:21+03:00 [critical] Uncaught Error: syntax error, unexpected 'if' (T_IF)

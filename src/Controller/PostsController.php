@@ -335,7 +335,7 @@ class PostsController extends Controller
         //dd($currUser);
         if ($currUser)      // if the user is authorized
         {
-            $currUserEmail = $currUser->getUsername();  // authorized user's email
+            $currUserEmail = $currUser->getEmail();  // authorized user's email
             $userPostEmail = $post->getEmail();         // the email of the user who created current post
 
             if ($userPostEmail === $currUserEmail)
@@ -345,6 +345,7 @@ class PostsController extends Controller
         }
         else
             $postIsByCurrentUser = false;
+
 
 
         if ($currUser)   // if the current post is created by this user, we'll create a comment form
